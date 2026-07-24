@@ -1,0 +1,227 @@
+{
+  "schema_version": "1.0",
+  "context_id": "CHEMBL203_CHEMBL1824_73499ff2b6",
+  "iteration": 0,
+  "candidate": {
+    "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+    "compound_id": "CHEMBL_M1",
+    "p_activity_on": 7.3,
+    "p_activity_off": 6.4,
+    "selectivity_S": 0.8999999999999995,
+    "activity_type": "IC50",
+    "position_source": "measured",
+    "prediction_required": false,
+    "provenance_ids": [
+      "Fixture:FIXTURE_ACTIVITY_CHEMBL203_1",
+      "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_1"
+    ]
+  },
+  "target_pair": {
+    "on_target": {
+      "name": "EGFR",
+      "chembl_id": "CHEMBL203",
+      "uniprot_id": "P00533",
+      "role": "on_target",
+      "organism": null,
+      "target_type": null
+    },
+    "off_target": {
+      "name": "HER2",
+      "chembl_id": "CHEMBL1824",
+      "uniprot_id": "P04626",
+      "role": "off_target",
+      "organism": null,
+      "target_type": null
+    },
+    "selection_method": "auto_fixture_rank",
+    "selection_confidence": "high"
+  },
+  "route": {
+    "name": "empirical_mmp",
+    "fallback_required": false
+  },
+  "local_evidence": {
+    "confidence_label": "medium",
+    "confidence_basis": {
+      "n_comeasured_total": 5,
+      "n_local_neighbors": 5,
+      "n_applicable_rules": 2,
+      "assay_compatibility": 1.0,
+      "sources": [
+        "Fixture"
+      ]
+    },
+    "neighbors": [
+      {
+        "compound_id": "CHEMBL_M1",
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.3,
+        "p_activity_off": 6.4,
+        "selectivity_S": 0.8999999999999995,
+        "activity_type": "IC50",
+        "tanimoto_to_candidate": 1.0,
+        "position_source": "measured",
+        "provenance_ids": [
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL203_1",
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_1"
+        ]
+      },
+      {
+        "compound_id": "CHEMBL_M2",
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.55,
+        "p_activity_off": 6.1,
+        "selectivity_S": 1.4500000000000002,
+        "activity_type": "IC50",
+        "tanimoto_to_candidate": 0.8181818181818182,
+        "position_source": "measured",
+        "provenance_ids": [
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL203_2",
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_2"
+        ]
+      },
+      {
+        "compound_id": "CHEMBL_M3",
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)cc3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 6.95,
+        "p_activity_off": 6.55,
+        "selectivity_S": 0.40000000000000036,
+        "activity_type": "IC50",
+        "tanimoto_to_candidate": 0.796875,
+        "position_source": "measured",
+        "provenance_ids": [
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL203_3",
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_3"
+        ]
+      },
+      {
+        "compound_id": "CHEMBL_M4",
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.7,
+        "p_activity_off": 5.95,
+        "selectivity_S": 1.75,
+        "activity_type": "IC50",
+        "tanimoto_to_candidate": 0.782608695652174,
+        "position_source": "measured",
+        "provenance_ids": [
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL203_4",
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_4"
+        ]
+      },
+      {
+        "compound_id": "CHEMBL_M5",
+        "canonical_smiles": "COc1cc2ncnc(Nc3cc(Cl)c(F)cn3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.45,
+        "p_activity_off": 5.6,
+        "selectivity_S": 1.8500000000000005,
+        "activity_type": "IC50",
+        "tanimoto_to_candidate": 0.7647058823529411,
+        "position_source": "measured",
+        "provenance_ids": [
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL203_5",
+          "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_5"
+        ]
+      }
+    ],
+    "applicable_rules": [
+      {
+        "rule_id": "R_CL_TO_BR",
+        "description": "aryl chlorine → aryl bromine",
+        "core_fragment": null,
+        "from_frag": "[Cl]",
+        "to_frag": null,
+        "reaction_smarts": "[c:1][Cl:2]>>[c:1][Br:2]",
+        "delta_on": 0.25,
+        "delta_off": -0.3,
+        "delta_S": 0.55,
+        "delta_on_std": null,
+        "delta_off_std": null,
+        "delta_S_std": null,
+        "support_n": 1,
+        "confidence": "medium",
+        "applicability": {
+          "applicable": true,
+          "match_count": 1,
+          "sanitization_passed": true
+        },
+        "generated_products": [
+          {
+            "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+            "changed_atom_count": 0
+          }
+        ],
+        "supporting_pairs": [
+          {
+            "source_compound": "CHEMBL_M1",
+            "target_compound": "CHEMBL_M2",
+            "delta_on": 0.25,
+            "delta_off": -0.3,
+            "delta_S": 0.55,
+            "provenance_ids": [
+              "FIXTURE_MMP_1"
+            ]
+          }
+        ],
+        "provenance_ids": [
+          "FIXTURE_MMP_1"
+        ]
+      },
+      {
+        "rule_id": "R_CL_TO_H",
+        "description": "aryl chlorine → hydrogen",
+        "core_fragment": null,
+        "from_frag": "[Cl]",
+        "to_frag": null,
+        "reaction_smarts": "[c:1][Cl:2]>>[cH:1]",
+        "delta_on": -0.35,
+        "delta_off": 0.15,
+        "delta_S": -0.5,
+        "delta_on_std": null,
+        "delta_off_std": null,
+        "delta_S_std": null,
+        "support_n": 1,
+        "confidence": "low",
+        "applicability": {
+          "applicable": true,
+          "match_count": 1,
+          "sanitization_passed": true
+        },
+        "generated_products": [
+          {
+            "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)cc3)c2cc1OCCCN1CCOCC1",
+            "changed_atom_count": 1
+          }
+        ],
+        "supporting_pairs": [
+          {
+            "source_compound": "CHEMBL_M1",
+            "target_compound": "CHEMBL_M3",
+            "delta_on": -0.35,
+            "delta_off": 0.15,
+            "delta_S": -0.5,
+            "provenance_ids": [
+              "FIXTURE_MMP_2"
+            ]
+          }
+        ],
+        "provenance_ids": [
+          "FIXTURE_MMP_2"
+        ]
+      }
+    ]
+  },
+  "prediction_request": {
+    "required": false,
+    "recommended_tools": [],
+    "receptors": {
+      "on_target": {
+        "pdb_id": "1M17",
+        "local_path": "structures/1M17.pdb"
+      },
+      "off_target": {
+        "pdb_id": "3PP0",
+        "local_path": "structures/3PP0.pdb"
+      }
+    }
+  }
+}

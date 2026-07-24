@@ -1,0 +1,201 @@
+{
+  "schema_version": "1.0",
+  "status": "ready",
+  "context_id": "CHEMBL203_CHEMBL1824_73499ff2b6",
+  "seed": {
+    "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+    "molecule_id": null
+  },
+  "on_target": {
+    "name": "EGFR",
+    "chembl_id": "CHEMBL203",
+    "uniprot_id": "P00533",
+    "role": "on_target",
+    "organism": null,
+    "target_type": null
+  },
+  "off_target_candidates": [
+    {
+      "target": {
+        "name": "HER2",
+        "chembl_id": "CHEMBL1824",
+        "uniprot_id": "P04626",
+        "role": "off_target",
+        "organism": null,
+        "target_type": null
+      },
+      "evidence_tier": 1,
+      "evidence": {
+        "seed_direct_activity": true,
+        "seed_pactivity": null,
+        "active_analog_count": 5,
+        "max_analog_similarity": 1.0,
+        "mean_active_analog_similarity": 0.0,
+        "weighted_activity": null,
+        "co_measured_count": 5,
+        "same_target_family": true,
+        "pocket_similarity": 0.82,
+        "safety_flags": [
+          "fixture safety flag"
+        ],
+        "source_ids": [
+          "FIXTURE_PROFILE:CHEMBL1824",
+          "FIXTURE_COMEASURED:5",
+          "PDB:3PP0"
+        ]
+      },
+      "ranking_score": 0.991,
+      "method": "auto_fixture_rank",
+      "confidence": "high",
+      "rationale": [
+        "Synthetic fixture support for HER2",
+        "5 co-measured fixture compounds"
+      ]
+    },
+    {
+      "target": {
+        "name": "SRC",
+        "chembl_id": "CHEMBL267",
+        "uniprot_id": "P12931",
+        "role": "off_target",
+        "organism": null,
+        "target_type": null
+      },
+      "evidence_tier": 3,
+      "evidence": {
+        "seed_direct_activity": false,
+        "seed_pactivity": null,
+        "active_analog_count": 0,
+        "max_analog_similarity": 1.0,
+        "mean_active_analog_similarity": 0.0,
+        "weighted_activity": null,
+        "co_measured_count": 4,
+        "same_target_family": false,
+        "pocket_similarity": 0.55,
+        "safety_flags": [],
+        "source_ids": [
+          "FIXTURE_PROFILE:CHEMBL267",
+          "FIXTURE_COMEASURED:4",
+          "PDB:2SRC"
+        ]
+      },
+      "ranking_score": 0.4375,
+      "method": "auto_fixture_rank",
+      "confidence": "low",
+      "rationale": [
+        "Synthetic fixture support for SRC",
+        "4 co-measured fixture compounds"
+      ]
+    },
+    {
+      "target": {
+        "name": "MET",
+        "chembl_id": "CHEMBL3717",
+        "uniprot_id": "P08581",
+        "role": "off_target",
+        "organism": null,
+        "target_type": null
+      },
+      "evidence_tier": 3,
+      "evidence": {
+        "seed_direct_activity": false,
+        "seed_pactivity": null,
+        "active_analog_count": 0,
+        "max_analog_similarity": 1.0,
+        "mean_active_analog_similarity": 0.0,
+        "weighted_activity": null,
+        "co_measured_count": 3,
+        "same_target_family": false,
+        "pocket_similarity": 0.48,
+        "safety_flags": [],
+        "source_ids": [
+          "FIXTURE_PROFILE:CHEMBL3717",
+          "FIXTURE_COMEASURED:3",
+          "PDB:3DKF"
+        ]
+      },
+      "ranking_score": 0.394,
+      "method": "auto_fixture_rank",
+      "confidence": "low",
+      "rationale": [
+        "Synthetic fixture support for MET",
+        "3 co-measured fixture compounds"
+      ]
+    }
+  ],
+  "selected_off_target": {
+    "target": {
+      "name": "HER2",
+      "chembl_id": "CHEMBL1824",
+      "uniprot_id": "P04626",
+      "role": "off_target",
+      "organism": null,
+      "target_type": null
+    },
+    "selection_method": "auto_fixture_rank",
+    "selection_confidence": "high",
+    "selected_rank": 1,
+    "rationale": [
+      "Synthetic fixture support for HER2",
+      "5 co-measured fixture compounds"
+    ]
+  },
+  "route": "empirical_mmp",
+  "evidence_audit": {
+    "n_on_compounds": 5,
+    "n_off_compounds": 5,
+    "n_comeasured": 5,
+    "n_local_comeasured": 5,
+    "n_mmp_pairs": 2,
+    "n_applicable_mmp": 2,
+    "assay_compatibility": 1.0,
+    "on_structure_available": true,
+    "off_structure_available": true,
+    "confidence_label": "medium",
+    "sources": [
+      "Fixture"
+    ]
+  },
+  "graph_ref": {
+    "graph_id": "graph:CHEMBL203_CHEMBL1824_73499ff2b6",
+    "path": "data/cache/schema_example/CHEMBL203_CHEMBL1824_73499ff2b6/graph.json",
+    "node_count": 21,
+    "edge_count": 26,
+    "schema_version": "1.0"
+  },
+  "structures": {
+    "on_target": {
+      "target_id": "CHEMBL203",
+      "pdb_id": "1M17",
+      "local_path": "structures/1M17.pdb",
+      "chain_id": "A",
+      "pocket_definition_path": null,
+      "provenance": {
+        "source": "Fixture",
+        "source_record_id": "PDB:1M17",
+        "source_url": null,
+        "retrieved_at": "2026-07-23T05:55:06.073363+00:00",
+        "raw_cache_path": null
+      }
+    },
+    "off_target": {
+      "target_id": "CHEMBL1824",
+      "pdb_id": "3PP0",
+      "local_path": "structures/3PP0.pdb",
+      "chain_id": "A",
+      "pocket_definition_path": null,
+      "provenance": {
+        "source": "Fixture",
+        "source_record_id": "PDB:3PP0",
+        "source_url": null,
+        "retrieved_at": "2026-07-23T05:55:06.073374+00:00",
+        "raw_cache_path": null
+      }
+    }
+  },
+  "figure_paths": {
+    "evidence_graph": "data/cache/schema_example/CHEMBL203_CHEMBL1824_73499ff2b6/figures/evidence_graph.png",
+    "selectivity_landscape": "data/cache/schema_example/CHEMBL203_CHEMBL1824_73499ff2b6/figures/selectivity_landscape.png"
+  },
+  "message": null
+}

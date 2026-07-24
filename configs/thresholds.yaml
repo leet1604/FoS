@@ -1,0 +1,31 @@
+off_target_discovery:
+  active_pactivity_threshold: 5.5
+  engagement_pactivity_threshold: 6.0
+  density_high: 100
+  density_medium: 15
+  max_preliminary_targets: 15
+  max_density_scan_targets: 5
+  max_workers: 4
+
+routes:
+  empirical_direct:
+    min_comeasured: 100
+    min_local_comeasured: 3
+    min_applicable_mmp: 1
+    min_assay_compatibility: 0.70
+  split_sar:
+    min_comeasured: 15
+    min_support_per_target: 2
+  ligand_based:
+    min_on_compounds: 20
+    min_off_compounds: 20
+
+local_graph:
+  similarity_threshold: 0.45
+  max_neighbors_per_off: 25
+  max_rules_per_off: 15
+  max_supporting_pairs_per_rule: 3
+  max_generated_products_per_rule: 3
+
+rendering:
+  enabled_by_default: false

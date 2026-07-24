@@ -1,0 +1,23 @@
+pipeline_version: "0.1.0"
+provider_mode: "fixture"
+cache_dir: "data/cache/contexts"
+
+chemistry:
+  fingerprint_radius: 2
+  fingerprint_bits: 2048
+  local_similarity_threshold: 0.45
+  max_neighbors: 25
+
+activity:
+  allowed_types: ["IC50"]
+  allowed_relation: "="
+  aggregate: "median"
+
+routes:
+  empirical_mmp:
+    min_local_comeasured: 3
+    min_applicable_mmp: 1
+    min_assay_compatibility: 0.70
+  ligand_based:
+    min_on_compounds: 20
+    min_off_compounds: 20

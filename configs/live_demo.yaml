@@ -1,0 +1,19 @@
+pipeline_version: 0.4.0
+mode: live
+cache:
+  contexts: data/cache/contexts_live
+  evidence: data/cache/evidence_live
+  chembl_raw: data/raw/chembl/cache
+
+off_target_discovery:
+  analog_similarity_threshold: 0.60
+  max_analogs: 10
+  max_final_targets: 5
+  max_density_scan_targets: 5
+  max_workers: 4
+
+selection:
+  max_selected_off_targets: 3
+  auto_approve: false
+
+render_figures: false

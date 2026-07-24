@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "selectivity-agent-stage-a"
+version = "0.4.0"
+description = "Compact dynamic-evidence system for an agentic molecular selectivity optimizer"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.8",
+  "pandas>=2.0",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "pyyaml>=6.0",
+  "typer>=0.12",
+  "rdkit>=2024.3",
+  "selfies>=2.1",
+  "chembl-webresource-client>=0.10.9",
+  "requests>=2.31",
+  "matplotlib>=3.8"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+
+[project.scripts]
+stage-a = "stage_a.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
