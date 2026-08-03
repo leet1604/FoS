@@ -37,3 +37,11 @@ logs/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Runtime artifacts
+*.log
+*.out
+*.pid
+nohup.out
+logs/
+local_artifacts/
