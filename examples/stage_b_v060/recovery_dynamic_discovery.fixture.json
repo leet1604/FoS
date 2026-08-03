@@ -1,0 +1,828 @@
+{
+  "context_id": "CHEMBL203_CHEMBL1824_46a9287c04",
+  "on_target": "CHEMBL203",
+  "seed_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+  "iterations_run": 6,
+  "run_status": "optimized",
+  "optimized": true,
+  "baseline": {
+    "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+    "p_activity_on": 7.3,
+    "p_activity_off": {
+      "CHEMBL1824": 6.4
+    },
+    "selectivity_S": {
+      "CHEMBL1824": 0.9
+    },
+    "predicted": false,
+    "value_source": "exact_measured",
+    "uncertainty": 0.0,
+    "estimated_depth": 0
+  },
+  "accepted_candidates": [
+    {
+      "position": {
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.7,
+        "p_activity_off": {
+          "CHEMBL1824": 5.95
+        },
+        "selectivity_S": {
+          "CHEMBL1824": 1.75
+        },
+        "predicted": false,
+        "value_source": "exact_measured",
+        "uncertainty": 0.0,
+        "estimated_depth": 0
+      },
+      "depth": 1,
+      "applied_rule_ids": [],
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "evidence_confidence": "high",
+      "agg_selectivity_gain": 0.85,
+      "beam_score": 1.0100000000000002,
+      "terminal": true,
+      "terminal_reason": "accepted_tip"
+    },
+    {
+      "position": {
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.3625,
+        "p_activity_off": {
+          "CHEMBL1824": 6.325
+        },
+        "selectivity_S": {
+          "CHEMBL1824": 1.0374999999999996
+        },
+        "predicted": true,
+        "value_source": "mmp_estimated",
+        "uncertainty": 0.0,
+        "estimated_depth": 1
+      },
+      "depth": 1,
+      "applied_rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "evidence_confidence": "medium",
+      "agg_selectivity_gain": 0.1375,
+      "beam_score": 0.1625,
+      "terminal": true,
+      "terminal_reason": "accepted_tip"
+    }
+  ],
+  "validation_queue": [],
+  "rejected_candidates": [
+    {
+      "candidate_id": "CAND_128e1d53f628",
+      "product_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "source": "stage_a_mmp",
+      "family": "halogen",
+      "rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "from_frag": "[Cl]",
+      "to_frag": null,
+      "reaction_smarts": "[c:1][Cl:2]>>[c:1][Br:2]",
+      "description": "aryl chlorine → aryl bromine",
+      "raw_delta_on": 0.25,
+      "delta_on": 0.0625,
+      "delta_on_iqr": null,
+      "shrinkage_weight": 0.25,
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": -0.075,
+          "delta_S": 0.1375,
+          "raw_delta_off": -0.3,
+          "raw_delta_S": 0.55,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 1,
+          "supporting_rule_ids": [
+            "R_CL_TO_BR"
+          ],
+          "sign_consistency": 1.0,
+          "direction_agreement": 1.0,
+          "evidence_mode": "direct_paired",
+          "confidence": "medium",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "FIXTURE_MMP_1"
+          ]
+        }
+      ],
+      "agg_selectivity_gain": 0.1375,
+      "worst_required_off_delta": -0.075,
+      "pair_evidence_confidence": "medium",
+      "rule_evidence_confidence": "medium",
+      "min_confidence": "medium",
+      "is_pareto": false,
+      "gate": "rejected",
+      "gate_reasons": [
+        "visited_product"
+      ],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "coverage_missing": false,
+      "uncertainty_score": null,
+      "value_source": "mmp_estimated",
+      "expansion_level": 0,
+      "validation_attempts": 0,
+      "validation_status": null,
+      "predictor_reliability": null,
+      "predictor_independent": false,
+      "validation_evidence": {},
+      "parent_similarity": 0.8181818181818182,
+      "seed_similarity": 0.8181818181818182,
+      "delta_mw": 44.450999999999965,
+      "heavy_atom_change": 0,
+      "changed_bonds": 2
+    },
+    {
+      "candidate_id": "CAND_121934c70d70",
+      "product_smiles": "COc1cc2ncnc(Nc3ccc(F)cc3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "source": "stage_a_mmp",
+      "family": "halogen",
+      "rule_ids": [
+        "R_CL_TO_H"
+      ],
+      "from_frag": "[Cl]",
+      "to_frag": null,
+      "reaction_smarts": "[c:1][Cl:2]>>[cH:1]",
+      "description": "aryl chlorine → hydrogen",
+      "raw_delta_on": -0.35,
+      "delta_on": -0.0875,
+      "delta_on_iqr": null,
+      "shrinkage_weight": 0.25,
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": 0.0375,
+          "delta_S": -0.125,
+          "raw_delta_off": 0.15,
+          "raw_delta_S": -0.5,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 1,
+          "supporting_rule_ids": [
+            "R_CL_TO_H"
+          ],
+          "sign_consistency": 1.0,
+          "direction_agreement": 1.0,
+          "evidence_mode": "direct_paired",
+          "confidence": "low",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "FIXTURE_MMP_2"
+          ]
+        }
+      ],
+      "agg_selectivity_gain": -0.125,
+      "worst_required_off_delta": 0.0375,
+      "pair_evidence_confidence": "medium",
+      "rule_evidence_confidence": "low",
+      "min_confidence": "low",
+      "is_pareto": false,
+      "gate": "rejected",
+      "gate_reasons": [
+        "reused_transform_without_new_evidence"
+      ],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "coverage_missing": false,
+      "uncertainty_score": null,
+      "value_source": "mmp_estimated",
+      "expansion_level": 0,
+      "validation_attempts": 0,
+      "validation_status": null,
+      "predictor_reliability": null,
+      "predictor_independent": false,
+      "validation_evidence": {},
+      "parent_similarity": 0.796875,
+      "seed_similarity": 0.796875,
+      "delta_mw": -34.44500000000005,
+      "heavy_atom_change": -1,
+      "changed_bonds": 1
+    },
+    {
+      "candidate_id": "DISC_4656fc2ba199",
+      "product_smiles": "COc1cc2ncnc(Nc3cc(Cl)c(F)cn3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "source": "measured_analog_retrieval",
+      "family": "retrieval",
+      "rule_ids": [],
+      "from_frag": null,
+      "to_frag": null,
+      "reaction_smarts": null,
+      "description": "Measured analog retrieved from the cached paired activity neighborhood.",
+      "raw_delta_on": 0.15000000000000036,
+      "delta_on": 0.15000000000000036,
+      "delta_on_iqr": null,
+      "shrinkage_weight": 1.0,
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": -0.8000000000000007,
+          "delta_S": 0.9500000000000001,
+          "raw_delta_off": -0.8000000000000007,
+          "raw_delta_S": 0.9500000000000001,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 0,
+          "supporting_rule_ids": [],
+          "sign_consistency": null,
+          "direction_agreement": null,
+          "evidence_mode": "measured_analog_retrieval",
+          "confidence": "high",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "Fixture:FIXTURE_ACTIVITY_CHEMBL203_5",
+            "Fixture:FIXTURE_ACTIVITY_CHEMBL1824_5"
+          ]
+        }
+      ],
+      "agg_selectivity_gain": 0.9500000000000001,
+      "worst_required_off_delta": -0.8000000000000007,
+      "pair_evidence_confidence": "high",
+      "rule_evidence_confidence": "high",
+      "min_confidence": "high",
+      "is_pareto": false,
+      "gate": "rejected",
+      "gate_reasons": [
+        "safety:changed_bonds_exceeds_limit:16"
+      ],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [
+        "changed_bonds_exceeds_limit:16"
+      ],
+      "coverage_missing": false,
+      "uncertainty_score": 0.0,
+      "value_source": "exact_measured",
+      "expansion_level": 0,
+      "validation_attempts": 0,
+      "validation_status": null,
+      "predictor_reliability": null,
+      "predictor_independent": false,
+      "validation_evidence": {},
+      "parent_similarity": 0.7647058823529411,
+      "seed_similarity": 0.7647058823529411,
+      "delta_mw": 0.9879999999999995,
+      "heavy_atom_change": 0,
+      "changed_bonds": 16
+    },
+    {
+      "candidate_id": "CAND_5d732373f261",
+      "product_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "source": "stage_a_mmp",
+      "family": "halogen",
+      "rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "from_frag": "[Cl]",
+      "to_frag": null,
+      "reaction_smarts": "[c:1][Cl:2]>>[c:1][Br:2]",
+      "description": "aryl chlorine → aryl bromine",
+      "raw_delta_on": 0.25,
+      "delta_on": 0.0625,
+      "delta_on_iqr": null,
+      "shrinkage_weight": 0.25,
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": -0.075,
+          "delta_S": 0.1375,
+          "raw_delta_off": -0.3,
+          "raw_delta_S": 0.55,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 1,
+          "supporting_rule_ids": [
+            "R_CL_TO_BR"
+          ],
+          "sign_consistency": 1.0,
+          "direction_agreement": 1.0,
+          "evidence_mode": "direct_paired",
+          "confidence": "medium",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "FIXTURE_MMP_1"
+          ]
+        }
+      ],
+      "agg_selectivity_gain": 0.1375,
+      "worst_required_off_delta": -0.075,
+      "pair_evidence_confidence": "medium",
+      "rule_evidence_confidence": "medium",
+      "min_confidence": "medium",
+      "is_pareto": false,
+      "gate": "rejected",
+      "gate_reasons": [
+        "reused_transform_without_new_evidence"
+      ],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "coverage_missing": false,
+      "uncertainty_score": null,
+      "value_source": "mmp_estimated",
+      "expansion_level": 0,
+      "validation_attempts": 0,
+      "validation_status": null,
+      "predictor_reliability": null,
+      "predictor_independent": false,
+      "validation_evidence": {},
+      "parent_similarity": 0.8260869565217391,
+      "seed_similarity": 0.684931506849315,
+      "delta_mw": 44.450999999999965,
+      "heavy_atom_change": 0,
+      "changed_bonds": 2
+    },
+    {
+      "candidate_id": "CAND_56cea9a69eef",
+      "product_smiles": "COc1cc2ncnc(Nc3ccc(C#N)cc3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "source": "stage_a_mmp",
+      "family": "halogen",
+      "rule_ids": [
+        "R_CL_TO_H"
+      ],
+      "from_frag": "[Cl]",
+      "to_frag": null,
+      "reaction_smarts": "[c:1][Cl:2]>>[cH:1]",
+      "description": "aryl chlorine → hydrogen",
+      "raw_delta_on": -0.35,
+      "delta_on": -0.0875,
+      "delta_on_iqr": null,
+      "shrinkage_weight": 0.25,
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": 0.0375,
+          "delta_S": -0.125,
+          "raw_delta_off": 0.15,
+          "raw_delta_S": -0.5,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 1,
+          "supporting_rule_ids": [
+            "R_CL_TO_H"
+          ],
+          "sign_consistency": 1.0,
+          "direction_agreement": 1.0,
+          "evidence_mode": "direct_paired",
+          "confidence": "low",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "FIXTURE_MMP_2"
+          ]
+        }
+      ],
+      "agg_selectivity_gain": -0.125,
+      "worst_required_off_delta": 0.0375,
+      "pair_evidence_confidence": "medium",
+      "rule_evidence_confidence": "low",
+      "min_confidence": "low",
+      "is_pareto": false,
+      "gate": "rejected",
+      "gate_reasons": [
+        "reused_transform_without_new_evidence"
+      ],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "coverage_missing": false,
+      "uncertainty_score": null,
+      "value_source": "mmp_estimated",
+      "expansion_level": 0,
+      "validation_attempts": 0,
+      "validation_status": null,
+      "predictor_reliability": null,
+      "predictor_independent": false,
+      "validation_evidence": {},
+      "parent_similarity": 0.7794117647058824,
+      "seed_similarity": 0.7101449275362319,
+      "delta_mw": -34.44500000000005,
+      "heavy_atom_change": -1,
+      "changed_bonds": 1
+    }
+  ],
+  "final_beam": [
+    {
+      "position": {
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.7,
+        "p_activity_off": {
+          "CHEMBL1824": 5.95
+        },
+        "selectivity_S": {
+          "CHEMBL1824": 1.75
+        },
+        "predicted": false,
+        "value_source": "exact_measured",
+        "uncertainty": 0.0,
+        "estimated_depth": 0
+      },
+      "depth": 1,
+      "applied_rule_ids": [],
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "evidence_confidence": "high",
+      "agg_selectivity_gain": 0.85,
+      "beam_score": 1.0100000000000002,
+      "terminal": true,
+      "terminal_reason": "accepted_tip"
+    },
+    {
+      "position": {
+        "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "p_activity_on": 7.3625,
+        "p_activity_off": {
+          "CHEMBL1824": 6.325
+        },
+        "selectivity_S": {
+          "CHEMBL1824": 1.0374999999999996
+        },
+        "predicted": true,
+        "value_source": "mmp_estimated",
+        "uncertainty": 0.0,
+        "estimated_depth": 1
+      },
+      "depth": 1,
+      "applied_rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "evidence_confidence": "medium",
+      "agg_selectivity_gain": 0.1375,
+      "beam_score": 0.1625,
+      "terminal": true,
+      "terminal_reason": "accepted_tip"
+    }
+  ],
+  "trajectory": [
+    {
+      "iteration": 1,
+      "sub_iteration": 0,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "applied_rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "decision": "ACCEPT",
+      "rationale": "Candidate passed hard constraints and evidence gate with adjusted selectivity gain +0.14.",
+      "plan_rationale": "Heuristic selected CAND_128e1d53f628: gate=eligible, adjusted selectivity gain=+0.14, adjusted delta_on=0.0625.",
+      "confidence": "medium",
+      "decision_confidence": "medium",
+      "stop_reason": null,
+      "predicted_delta_on": 0.0625,
+      "predicted_selectivity_gain": 0.1375,
+      "filter_reasons": [],
+      "gate": "eligible",
+      "gate_reasons": [],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "step_type": "assess",
+      "improved": true,
+      "recovered_from_failure": false,
+      "tool_calls": [],
+      "budget_snapshot": {
+        "expansions": 0,
+        "family_switches": 0,
+        "backtracks": 0,
+        "discoveries": 0
+      },
+      "estimated_depth": 1,
+      "family": "halogen"
+    },
+    {
+      "iteration": 2,
+      "sub_iteration": 1,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": null,
+      "applied_rule_ids": [],
+      "decision": "EXPAND_EVIDENCE",
+      "rationale": "CHEMBL1824: no applicable empirical MMP rule",
+      "plan_rationale": "",
+      "confidence": "high",
+      "decision_confidence": null,
+      "stop_reason": null,
+      "predicted_delta_on": null,
+      "predicted_selectivity_gain": null,
+      "filter_reasons": [],
+      "gate": null,
+      "gate_reasons": [],
+      "safety_alerts": [],
+      "safety_rejects": [],
+      "step_type": "tool",
+      "improved": null,
+      "recovered_from_failure": false,
+      "tool_calls": [
+        "cached_evidence_expansion"
+      ],
+      "budget_snapshot": {
+        "expansions": 1,
+        "family_switches": 0,
+        "backtracks": 0,
+        "discoveries": 0
+      },
+      "estimated_depth": 0,
+      "family": null
+    },
+    {
+      "iteration": 3,
+      "sub_iteration": 0,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": null,
+      "applied_rule_ids": [],
+      "decision": "BACKTRACK",
+      "rationale": "Current branch exhausted; restored an earlier node with untried alternatives.",
+      "plan_rationale": "",
+      "confidence": "high",
+      "decision_confidence": null,
+      "stop_reason": null,
+      "predicted_delta_on": null,
+      "predicted_selectivity_gain": null,
+      "filter_reasons": [],
+      "gate": null,
+      "gate_reasons": [],
+      "safety_alerts": [],
+      "safety_rejects": [],
+      "step_type": "backtrack",
+      "improved": null,
+      "recovered_from_failure": true,
+      "tool_calls": [],
+      "budget_snapshot": {
+        "expansions": 1,
+        "family_switches": 0,
+        "backtracks": 1,
+        "discoveries": 0
+      },
+      "estimated_depth": 0,
+      "family": null
+    },
+    {
+      "iteration": 4,
+      "sub_iteration": 0,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": null,
+      "applied_rule_ids": [],
+      "decision": "SWITCH_STRATEGY",
+      "rationale": "Recovered measured analogs and/or inferred transforms from the cached local pool.",
+      "plan_rationale": "",
+      "confidence": "medium",
+      "decision_confidence": null,
+      "stop_reason": null,
+      "predicted_delta_on": null,
+      "predicted_selectivity_gain": null,
+      "filter_reasons": [],
+      "gate": null,
+      "gate_reasons": [],
+      "safety_alerts": [],
+      "safety_rejects": [],
+      "step_type": "tool",
+      "improved": null,
+      "recovered_from_failure": false,
+      "tool_calls": [
+        "dynamic_transform_discovery"
+      ],
+      "budget_snapshot": {
+        "expansions": 1,
+        "family_switches": 0,
+        "backtracks": 1,
+        "discoveries": 1
+      },
+      "estimated_depth": 0,
+      "family": null
+    },
+    {
+      "iteration": 5,
+      "sub_iteration": 0,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "applied_rule_ids": [],
+      "decision": "ACCEPT",
+      "rationale": "Candidate passed hard constraints and evidence gate with adjusted selectivity gain +0.85.",
+      "plan_rationale": "Heuristic selected DISC_0aac93723690: gate=eligible, adjusted selectivity gain=+0.85, adjusted delta_on=0.40000000000000036.",
+      "confidence": "high",
+      "decision_confidence": "high",
+      "stop_reason": null,
+      "predicted_delta_on": 0.40000000000000036,
+      "predicted_selectivity_gain": 0.85,
+      "filter_reasons": [],
+      "gate": "eligible",
+      "gate_reasons": [],
+      "safety_alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "safety_rejects": [],
+      "step_type": "assess",
+      "improved": true,
+      "recovered_from_failure": false,
+      "tool_calls": [],
+      "budget_snapshot": {
+        "expansions": 1,
+        "family_switches": 0,
+        "backtracks": 1,
+        "discoveries": 1
+      },
+      "estimated_depth": 0,
+      "family": "retrieval"
+    },
+    {
+      "iteration": 6,
+      "sub_iteration": 0,
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(C#N)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "chosen_product_smiles": null,
+      "applied_rule_ids": [],
+      "decision": "STOP",
+      "rationale": "No remaining candidate after expansion, backtracking, and bounded discovery.",
+      "plan_rationale": "",
+      "confidence": "high",
+      "decision_confidence": null,
+      "stop_reason": "no_safe_candidate",
+      "predicted_delta_on": null,
+      "predicted_selectivity_gain": null,
+      "filter_reasons": [],
+      "gate": null,
+      "gate_reasons": [],
+      "safety_alerts": [],
+      "safety_rejects": [],
+      "step_type": "assess",
+      "improved": null,
+      "recovered_from_failure": false,
+      "tool_calls": [],
+      "budget_snapshot": {
+        "expansions": 1,
+        "family_switches": 0,
+        "backtracks": 1,
+        "discoveries": 1
+      },
+      "estimated_depth": 0,
+      "family": null
+    }
+  ],
+  "tool_calls": [],
+  "llm_calls": [],
+  "run_manifest": {
+    "timestamp_utc": "2026-07-30T02:46:15.116560+00:00",
+    "git_commit": null,
+    "config_hash": "eebd2cb3b6c5be06",
+    "stage_b_config": {
+      "max_iterations": 3,
+      "final_top_k": 3,
+      "beam_k": null,
+      "max_retries_per_iteration": 3,
+      "max_expansions_per_run": 1,
+      "max_family_switches_per_run": 2,
+      "max_backtracks_per_run": 2,
+      "max_unvalidated_depth": 2,
+      "expansion_thresholds": [
+        0.35,
+        0.25
+      ],
+      "max_validation_attempts_per_candidate": 1,
+      "max_prediction_calls_per_run": 4,
+      "enable_dynamic_discovery": true,
+      "max_discovery_rounds": 1,
+      "max_retrieval_candidates": 5,
+      "max_discovered_transforms": 10,
+      "max_discovered_products": 20,
+      "discovery_min_selectivity_gain": 0.3,
+      "max_on_target_drop": 1.0,
+      "max_required_off_worsen": 0.2,
+      "min_selectivity_gain": 0.1,
+      "require_required_off_coverage": true,
+      "min_rule_support_n": 1,
+      "min_rule_confidence": "medium",
+      "min_sign_consistency": 0.7,
+      "severe_direction_conflict": 0.5,
+      "shrinkage_k_prior": 3.0,
+      "high_dispersion_iqr": 1.0,
+      "high_dispersion_factor": 0.5,
+      "max_abs_delta_on": 1.0,
+      "max_abs_delta_off": 1.0,
+      "min_parent_similarity": 0.55,
+      "min_seed_similarity": 0.4,
+      "max_delta_mw": 100.0,
+      "max_heavy_atom_change": 8,
+      "max_changed_bonds": 6,
+      "max_sa_score": 6.0,
+      "reject_tier2_alerts": false,
+      "stall_patience": 2,
+      "plateau_epsilon": 0.05,
+      "w_selectivity": 1.0,
+      "w_on_retention": 0.4,
+      "w_confidence": 0.0,
+      "off_weights": {
+        "required": 1.0,
+        "selected": 0.7,
+        "monitor": 0.2,
+        "dropped": 0.0
+      },
+      "trajectory_window": 5,
+      "confidence_score": {
+        "high": 1.0,
+        "medium": 0.6,
+        "low": 0.3,
+        "none": 0.0
+      },
+      "random_seed": 42,
+      "plan_prompt_version": "v2",
+      "assess_prompt_version": "v2",
+      "reflect_prompt_version": "v1"
+    },
+    "llm": {
+      "model": "heuristic",
+      "temperature": null,
+      "seed": 42
+    },
+    "prompt_versions": {
+      "plan": "v2",
+      "assess": "v2",
+      "reflect": "v1"
+    },
+    "off_target_mode": "hint_only",
+    "stage_a_timing_seconds": {
+      "normalize_and_resolve": 0.0021,
+      "off_target_discovery": 0.0001,
+      "evidence_and_pair_cache": 0.0133,
+      "seed_local_graph": 0.0064,
+      "save_context": 0.0024,
+      "render_figures": 0.0,
+      "total": 0.0243
+    },
+    "stage_a_cache_summary": {
+      "target_hits": 0,
+      "target_misses": 0,
+      "pair_hits": 1,
+      "pair_misses": 0
+    }
+  },
+  "metrics": {
+    "optimization": {
+      "optimized": true,
+      "accepted_steps": 2,
+      "final_delta_on": 0.40000000000000036,
+      "per_off_delta_selectivity": {
+        "CHEMBL1824": 0.85
+      },
+      "worst_off_delta_selectivity": 0.85,
+      "best_beam_score": 1.0100000000000002
+    },
+    "trajectory": {
+      "steps": 6,
+      "positive_step_rate": 1.0,
+      "candidate_rejection_rate": 0.0,
+      "expansion_steps": 1,
+      "reflection_steps": 0,
+      "backtrack_steps": 1,
+      "recovery_rate": 0.3333333333333333
+    },
+    "evidence": {
+      "accepted_value_sources": {
+        "exact_measured": 1,
+        "mmp_estimated": 1
+      },
+      "validation_value_sources": {},
+      "rejected_sources": {
+        "stage_a_mmp": 4,
+        "measured_analog_retrieval": 1
+      },
+      "validation_queue_size": 0,
+      "rejected_candidate_size": 5,
+      "safety_alert_count": 5,
+      "safety_reject_count": 1
+    },
+    "agent": {
+      "llm_calls": 0,
+      "llm_fallbacks": 0,
+      "tool_calls": 0,
+      "tool_status_counts": {},
+      "mean_llm_latency_sec": null,
+      "mean_tool_latency_sec": null
+    }
+  }
+}

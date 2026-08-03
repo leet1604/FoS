@@ -25,11 +25,13 @@ class RuleApplicabilityFilter:
         if candidate is None:
             return False, [], 0
 
-        if rule.core_fragment and rule.from_fragment and rule.to_fragment:
+        if rule.from_fragment and rule.to_fragment:
             matches = 0
             products: set[str] = set()
             for core, variable in fragment_single_cuts(candidate_smiles, self.fragment_config):
-                if core != rule.core_fragment or variable != rule.from_fragment:
+                if variable != rule.from_fragment:
+                    continue
+                if rule.core_fragment is not None and core != rule.core_fragment:
                     continue
                 matches += 1
                 product = join_mmp_fragments(core, rule.to_fragment)

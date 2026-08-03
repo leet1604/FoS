@@ -1,0 +1,46 @@
+[
+  {
+    "rule_id": "REPLAY_5f4175b7c764",
+    "core_fragment": null,
+    "from_fragment": "C1CCN(C[*:1])CC1",
+    "to_fragment": "C[*:1]",
+    "from_smarts": null,
+    "reaction_smarts": null,
+    "description": "Portable replay: C1CCN(C[*:1])CC1 -> C[*:1]",
+    "evidence_mode": "portable_fragment_transform_replay",
+    "delta_on": 1.6400000000000001,
+    "delta_off": -0.9075,
+    "delta_selectivity": 2.5475000000000003,
+    "delta_on_std": null,
+    "delta_off_std": null,
+    "delta_selectivity_std": null,
+    "delta_on_iqr": null,
+    "delta_off_iqr": null,
+    "delta_selectivity_iqr": null,
+    "support_n": 2,
+    "sign_consistency": 1.0,
+    "confidence": "medium",
+    "supporting_pairs": [],
+    "supporting_pair_ids": [
+      "MMP_574aeadb9020::CHEMBL94068__CHEMBL93464::1",
+      "MMP_aa389543d7c5::CHEMBL90595__CHEMBL91867::1"
+    ],
+    "provenance_ids": [
+      "ChEMBL:1050902",
+      "ChEMBL:1050903",
+      "ChEMBL:1057345",
+      "ChEMBL:1057346",
+      "ChEMBL:1059677",
+      "ChEMBL:1059678",
+      "ChEMBL:1063646",
+      "ChEMBL:1063647",
+      "ChEMBL:120874",
+      "ChEMBL:120875",
+      "ChEMBL:12205231",
+      "ChEMBL:12205234",
+      "ChEMBL:15698600",
+      "ChEMBL:1681989",
+      "ChEMBL:1682011"
+    ]
+  }
+]

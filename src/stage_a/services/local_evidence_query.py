@@ -39,16 +39,18 @@ class LocalEvidenceQueryService:
         paired: pd.DataFrame,
         off_target_id: str,
         max_neighbors: int | None = None,
+        similarity_threshold: float | None = None,
     ) -> list[NeighborEvidence]:
         if paired.empty:
             return []
+        threshold = self.similarity_threshold if similarity_threshold is None else similarity_threshold
         neighbors: list[NeighborEvidence] = []
         for row in paired.to_dict(orient="records"):
             smiles = row.get("canonical_smiles")
             if not smiles:
                 continue
             score = tanimoto(candidate_smiles, smiles)
-            if score < self.similarity_threshold:
+            if score < threshold:
                 continue
             provenance = row.get("provenance_ids", [])
             if not isinstance(provenance, list):
@@ -125,9 +127,12 @@ class LocalEvidenceQueryService:
         route: str,
         max_rules: int = 15,
         max_supporting_pairs_per_rule: int = 3,
+        min_rule_support_n: int | None = None,
     ) -> list[ApplicableRuleEvidence]:
         result: list[ApplicableRuleEvidence] = []
         for rule in rules:
+            if min_rule_support_n is not None and rule.support_n < min_rule_support_n:
+                continue
             applicable, generated, match_count = self.rule_filter.apply_detailed(
                 candidate_smiles,
                 rule,

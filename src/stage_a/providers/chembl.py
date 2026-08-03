@@ -26,6 +26,7 @@ class ChEMBLProvider:
         allowed_activity_types: tuple[str, ...] = ("IC50",),
         binding_assays_only: bool = True,
         timeout_seconds: int = 60,
+        fetch_document_years: bool = False,
     ) -> None:
         try:
             from chembl_webresource_client.new_client import new_client
@@ -48,7 +49,9 @@ class ChEMBLProvider:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.allowed_activity_types = tuple(allowed_activity_types)
         self.binding_assays_only = binding_assays_only
+        self.fetch_document_years = fetch_document_years
         self._molecule_smiles_cache: dict[str, str | None] = {}
+        self._document_year_cache: dict[str, int | None] = {}
 
     @staticmethod
     def _canonicalize(smiles: str | None) -> str | None:
@@ -179,6 +182,33 @@ class ChEMBLProvider:
                 break
         return result
 
+
+    def get_document_year(self, document_chembl_id: str | None) -> int | None:
+        if not document_chembl_id:
+            return None
+        if document_chembl_id in self._document_year_cache:
+            return self._document_year_cache[document_chembl_id]
+
+        payload = {"document_chembl_id": document_chembl_id}
+
+        def loader():
+            row = self.client.document.get(document_chembl_id)
+            return [row] if row else []
+
+        try:
+            rows = self._cached("document", payload, loader)
+        except Exception:
+            rows = []
+        year = None
+        if rows:
+            raw = rows[0].get("year")
+            try:
+                year = int(raw) if raw is not None else None
+            except (TypeError, ValueError):
+                year = None
+        self._document_year_cache[document_chembl_id] = year
+        return year
+
     def _activity_query(self, **filters):
         query = self.client.activity.filter(
             pchembl_value__isnull=False,
@@ -226,6 +256,10 @@ class ChEMBLProvider:
             if not smiles:
                 continue
             activity_id = str(row.get("activity_id") or row.get("assay_chembl_id") or "unknown")
+            document_id = row.get("document_chembl_id")
+            publication_year = (
+                self.get_document_year(document_id) if self.fetch_document_years else None
+            )
             records.append(
                 ActivityRecord(
                     compound_id=molecule_id,
@@ -235,7 +269,10 @@ class ChEMBLProvider:
                     activity_type=row.get("standard_type") or "unknown",
                     relation=row.get("standard_relation") or "=",
                     assay_id=row.get("assay_chembl_id") or "unknown",
+                    assay_type=row.get("assay_type"),
                     assay_confidence=None,
+                    document_id=document_id,
+                    publication_year=publication_year,
                     provenance=Provenance(
                         source="ChEMBL",
                         source_record_id=activity_id,

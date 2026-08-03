@@ -1,0 +1,11 @@
+{
+  "on_target_id": "CHEMBL203",
+  "off_target_id": "CHEMBL1824",
+  "n_paired": 1492,
+  "n_rules": 50,
+  "n_supporting_pairs": 0,
+  "sources": [
+    "ChEMBL"
+  ],
+  "saved_at": "2026-08-02T12:17:28.097489+00:00"
+}

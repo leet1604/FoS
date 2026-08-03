@@ -1,0 +1,30 @@
+FoS v0.7.2 provisional trajectory implementation
+
+Core modified files:
+- pyproject.toml
+- src/stage_b/schemas.py
+- src/stage_b/config.py
+- src/stage_b/critic.py
+- src/stage_b/act.py
+- src/stage_b/plan.py
+- src/stage_b/llm_backend.py
+- src/stage_b/prompts.py
+- src/stage_b/loop.py
+- src/stage_b/metrics.py
+- src/stage_c/schemas.py
+- src/stage_c/pipeline.py
+- src/stage_c/reporting.py
+- scripts/run_stage_b_live_pair.py
+- scripts/run_stage_abc_live_pair.py
+
+New tests:
+- tests/unit/stage_b/test_provisional_v072.py
+- tests/integration/test_stage_c_provisional_v072.py
+- provisional trajectory integration case appended to tests/integration/test_trajectory_mode_v071.py
+
+New documentation:
+- PROVISIONAL_TRAJECTORY_POLICY.md
+- CHANGELOG_V072.md
+- IMPLEMENTATION_STATUS_V072.md
+- TEST_REPORT_V072.md
+- notebooks/FoS_v072_provisional_trajectory_stageC_E2E_colab.ipynb

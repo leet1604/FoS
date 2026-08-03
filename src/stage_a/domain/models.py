@@ -48,7 +48,10 @@ class ActivityRecord(BaseModel):
     activity_type: str = "IC50"
     relation: str = "="
     assay_id: str
+    assay_type: str | None = None
     assay_confidence: float | None = None
+    document_id: str | None = None
+    publication_year: int | None = None
     provenance: Provenance
 
 

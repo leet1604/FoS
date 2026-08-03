@@ -1,0 +1,38 @@
+{
+  "schema_version": "2.0",
+  "release_id": "fos_eval_synthetic_v074",
+  "benchmark_track": "measured_optimization",
+  "on_target": "SYN_ON",
+  "off_target": "SYN_OFF",
+  "split": "development",
+  "split_strategy": "document_time",
+  "split_metadata": {
+    "cutoff_year": 2020,
+    "n_visible": 5,
+    "n_hidden": 1,
+    "n_excluded_ambiguous_or_missing": 0
+  },
+  "evidence_snapshot_id": "ccb09f18cbfd1685",
+  "n_visible_compounds": 5,
+  "n_hidden_compounds": 1,
+  "n_excluded_compounds": 0,
+  "n_visible_rules": 6,
+  "n_positive_episodes": 1,
+  "n_negative_episodes": 0,
+  "constraints": {
+    "min_delta_selectivity": 1.0,
+    "min_delta_on": -0.5,
+    "max_depth": 1,
+    "max_candidates": 100
+  },
+  "paths": {
+    "episodes": "examples/evaluation_v074/fos_eval_synthetic/public/development_episodes.jsonl",
+    "oracle": "examples/evaluation_v074/fos_eval_synthetic/private_oracle/development_oracle.jsonl",
+    "action_spaces": "examples/evaluation_v074/fos_eval_synthetic/manifests/action_spaces.jsonl",
+    "visible_evidence": "examples/evaluation_v074/fos_eval_synthetic/evidence/development"
+  },
+  "limitations": [
+    "Novel molecules absent from the held-out measured oracle remain unscorable.",
+    "Bounded negatives mean no successful molecule exists in the frozen action space and oracle coverage, not in all chemistry."
+  ]
+}

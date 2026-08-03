@@ -1,0 +1,21 @@
+{
+  "schema_version": "2.0",
+  "release_id": "egfr_her2_replay_doc3632549",
+  "benchmark_track": "measured_optimization",
+  "split": "development",
+  "split_strategy": "leave_one_document_out",
+  "on_target": "CHEMBL203",
+  "off_target": "CHEMBL1824",
+  "hidden_document_ids": [
+    "CHEMBL3632549"
+  ],
+  "n_visible_compounds": 1530,
+  "n_hidden_compounds": 13,
+  "n_excluded_compounds": 4,
+  "n_episodes": 1,
+  "n_portable_rules": 1,
+  "episode_file": "evaluation/releases/egfr_her2_replay_doc3632549/public/development_episodes.jsonl",
+  "action_space_file": "evaluation/releases/egfr_her2_replay_doc3632549/manifests/action_spaces.jsonl",
+  "oracle_file": "evaluation/releases/egfr_her2_replay_doc3632549/private_oracle/development_oracle.jsonl",
+  "leakage_control": "Held-out MMP pairs establish reachability only; predicted deltas and portable rule provenance come exclusively from visible-only MMP pairs."
+}

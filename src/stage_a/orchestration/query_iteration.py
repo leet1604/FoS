@@ -51,6 +51,7 @@ def query_iteration(
             bundle.paired,
             off_id,
             max_neighbors=request.max_neighbors_per_off,
+            similarity_threshold=request.similarity_threshold,
         )
         rules = dependencies.local_query.find_applicable_rules_from_pair(
             candidate.canonical_smiles,
@@ -60,6 +61,7 @@ def query_iteration(
             state.selected_route.value,
             max_rules=request.max_rules_per_off,
             max_supporting_pairs_per_rule=request.max_supporting_pairs_per_rule,
+            min_rule_support_n=request.min_rule_support_n,
         )
         neighbors_by_off[off_id] = neighbors
         rules_by_off[off_id] = rules
@@ -140,6 +142,16 @@ def query_iteration(
         {off_id: rows for off_id, rows in neighbors_by_off.items() if off_id in empirical_ids},
         {off_id: rows for off_id, rows in rules_by_off.items() if off_id in empirical_ids},
     ) if empirical_ids else {"required": False, "reason": None}
+    expansion = {
+        **expansion,
+        "expansion_level": request.expansion_level,
+        "similarity_threshold": (
+            request.similarity_threshold
+            if request.similarity_threshold is not None
+            else dependencies.local_query.similarity_threshold
+        ),
+        "min_rule_support_n": request.min_rule_support_n,
+    }
 
     local_graph = dependencies.graph_builder.build_local(
         candidate=position,

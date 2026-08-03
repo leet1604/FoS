@@ -1,0 +1,543 @@
+{
+  "schema_version": "1.0",
+  "stage_b_context_id": "CHEMBL203_CHEMBL1824_46a9287c04",
+  "on_target": "CHEMBL203",
+  "off_targets": [
+    "CHEMBL1824"
+  ],
+  "seed_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+  "stage_b_run_status": "needs_validation",
+  "run_status": "needs_validation",
+  "selected_candidate": {
+    "candidate_id": "CAND_128e1d53f628",
+    "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+    "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+    "stage_b_source": "stage_a_mmp",
+    "stage_b_rank": 1,
+    "stage_b_value_source": "mmp_estimated",
+    "stage_b_evidence_confidence": "medium",
+    "decision": "NEEDS_VALIDATION",
+    "decision_reasons": [
+      "candidate_activity_is_not_exact_measured",
+      "independent_prediction_missing_or_insufficient"
+    ],
+    "p_activity_on": null,
+    "p_activity_off": {
+      "CHEMBL1824": null
+    },
+    "selectivity_S": {
+      "CHEMBL1824": null
+    },
+    "delta_on": 0.0625,
+    "per_off_delta_selectivity": {
+      "CHEMBL1824": 0.1375
+    },
+    "worst_case_delta_selectivity": 0.1375,
+    "required_off_coverage": 1.0,
+    "uncertainty": null,
+    "independent_evidence_count": 0,
+    "prediction": {
+      "status": "unavailable",
+      "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "on_target": null,
+      "off_targets": {},
+      "provider_name": "null_prediction_provider",
+      "reason": "Independent potency/selectivity predictor is not configured.",
+      "metadata": {}
+    },
+    "docking": {
+      "status": "unavailable",
+      "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "provider_name": "null_docking_provider",
+      "on_target_score": null,
+      "off_target_scores": {},
+      "supports_selectivity": null,
+      "independent": false,
+      "reason": "Docking backend is not configured.",
+      "metadata": {}
+    },
+    "chemistry": {
+      "valid": true,
+      "hard_rejects": [],
+      "alerts": [
+        "filter_catalog:Aliphatic_long_chain"
+      ],
+      "parent_similarity": 0.8181818181818182,
+      "seed_similarity": 0.8181818181818182,
+      "novelty": 0.18181818181818177,
+      "novelty_utility": 0.7272727272727271,
+      "delta_mw": 44.450999999999965,
+      "heavy_atom_change": 0,
+      "changed_bonds": 2,
+      "sa_score": 2.4043529343716283
+    },
+    "evidence_score": 0.564,
+    "rerank_score": 0.5423410737726709,
+    "final_rank": 1,
+    "validation_actions": [
+      "Run an independent on/off-target potency or selectivity predictor.",
+      "Run target-specific structural validation or docking as corroborative evidence.",
+      "Prioritize experimental on-target and required off-target activity assays.",
+      "Review synthesis feasibility and medicinal-chemistry liabilities before synthesis."
+    ],
+    "provenance": {
+      "rule_ids": [
+        "R_CL_TO_BR"
+      ],
+      "candidate_id": "CAND_128e1d53f628",
+      "source": "stage_a_mmp",
+      "family": "halogen",
+      "gate": "needs_validation",
+      "gate_reasons": [
+        "rule_support_below_threshold:1<2",
+        "validation_tool_unavailable"
+      ],
+      "validation_status": "tool_unavailable",
+      "validation_evidence": {
+        "available": false,
+        "reason": "Validation attempt budget exhausted for this candidate.",
+        "metadata": {
+          "attempts": 1,
+          "budget": 1
+        }
+      },
+      "per_off": [
+        {
+          "off_target_id": "CHEMBL1824",
+          "weight": 1.0,
+          "delta_off": -0.075,
+          "delta_S": 0.1375,
+          "raw_delta_off": -0.3,
+          "raw_delta_S": 0.55,
+          "delta_off_iqr": null,
+          "delta_S_iqr": null,
+          "support_n": 1,
+          "independent_rule_n": 1,
+          "supporting_rule_ids": [
+            "R_CL_TO_BR"
+          ],
+          "sign_consistency": 1.0,
+          "direction_agreement": 1.0,
+          "evidence_mode": "direct_paired",
+          "confidence": "medium",
+          "coverage_missing": false,
+          "provenance_ids": [
+            "FIXTURE_MMP_1"
+          ]
+        }
+      ]
+    }
+  },
+  "candidate_assessments": [
+    {
+      "candidate_id": "CAND_128e1d53f628",
+      "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "stage_b_source": "stage_a_mmp",
+      "stage_b_rank": 1,
+      "stage_b_value_source": "mmp_estimated",
+      "stage_b_evidence_confidence": "medium",
+      "decision": "NEEDS_VALIDATION",
+      "decision_reasons": [
+        "candidate_activity_is_not_exact_measured",
+        "independent_prediction_missing_or_insufficient"
+      ],
+      "p_activity_on": null,
+      "p_activity_off": {
+        "CHEMBL1824": null
+      },
+      "selectivity_S": {
+        "CHEMBL1824": null
+      },
+      "delta_on": 0.0625,
+      "per_off_delta_selectivity": {
+        "CHEMBL1824": 0.1375
+      },
+      "worst_case_delta_selectivity": 0.1375,
+      "required_off_coverage": 1.0,
+      "uncertainty": null,
+      "independent_evidence_count": 0,
+      "prediction": {
+        "status": "unavailable",
+        "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "on_target": null,
+        "off_targets": {},
+        "provider_name": "null_prediction_provider",
+        "reason": "Independent potency/selectivity predictor is not configured.",
+        "metadata": {}
+      },
+      "docking": {
+        "status": "unavailable",
+        "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "provider_name": "null_docking_provider",
+        "on_target_score": null,
+        "off_target_scores": {},
+        "supports_selectivity": null,
+        "independent": false,
+        "reason": "Docking backend is not configured.",
+        "metadata": {}
+      },
+      "chemistry": {
+        "valid": true,
+        "hard_rejects": [],
+        "alerts": [
+          "filter_catalog:Aliphatic_long_chain"
+        ],
+        "parent_similarity": 0.8181818181818182,
+        "seed_similarity": 0.8181818181818182,
+        "novelty": 0.18181818181818177,
+        "novelty_utility": 0.7272727272727271,
+        "delta_mw": 44.450999999999965,
+        "heavy_atom_change": 0,
+        "changed_bonds": 2,
+        "sa_score": 2.4043529343716283
+      },
+      "evidence_score": 0.564,
+      "rerank_score": 0.5423410737726709,
+      "final_rank": 1,
+      "validation_actions": [
+        "Run an independent on/off-target potency or selectivity predictor.",
+        "Run target-specific structural validation or docking as corroborative evidence.",
+        "Prioritize experimental on-target and required off-target activity assays.",
+        "Review synthesis feasibility and medicinal-chemistry liabilities before synthesis."
+      ],
+      "provenance": {
+        "rule_ids": [
+          "R_CL_TO_BR"
+        ],
+        "candidate_id": "CAND_128e1d53f628",
+        "source": "stage_a_mmp",
+        "family": "halogen",
+        "gate": "needs_validation",
+        "gate_reasons": [
+          "rule_support_below_threshold:1<2",
+          "validation_tool_unavailable"
+        ],
+        "validation_status": "tool_unavailable",
+        "validation_evidence": {
+          "available": false,
+          "reason": "Validation attempt budget exhausted for this candidate.",
+          "metadata": {
+            "attempts": 1,
+            "budget": 1
+          }
+        },
+        "per_off": [
+          {
+            "off_target_id": "CHEMBL1824",
+            "weight": 1.0,
+            "delta_off": -0.075,
+            "delta_S": 0.1375,
+            "raw_delta_off": -0.3,
+            "raw_delta_S": 0.55,
+            "delta_off_iqr": null,
+            "delta_S_iqr": null,
+            "support_n": 1,
+            "independent_rule_n": 1,
+            "supporting_rule_ids": [
+              "R_CL_TO_BR"
+            ],
+            "sign_consistency": 1.0,
+            "direction_agreement": 1.0,
+            "evidence_mode": "direct_paired",
+            "confidence": "medium",
+            "coverage_missing": false,
+            "provenance_ids": [
+              "FIXTURE_MMP_1"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "supported_candidates": [],
+  "validation_candidates": [
+    {
+      "candidate_id": "CAND_128e1d53f628",
+      "canonical_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "parent_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1",
+      "stage_b_source": "stage_a_mmp",
+      "stage_b_rank": 1,
+      "stage_b_value_source": "mmp_estimated",
+      "stage_b_evidence_confidence": "medium",
+      "decision": "NEEDS_VALIDATION",
+      "decision_reasons": [
+        "candidate_activity_is_not_exact_measured",
+        "independent_prediction_missing_or_insufficient"
+      ],
+      "p_activity_on": null,
+      "p_activity_off": {
+        "CHEMBL1824": null
+      },
+      "selectivity_S": {
+        "CHEMBL1824": null
+      },
+      "delta_on": 0.0625,
+      "per_off_delta_selectivity": {
+        "CHEMBL1824": 0.1375
+      },
+      "worst_case_delta_selectivity": 0.1375,
+      "required_off_coverage": 1.0,
+      "uncertainty": null,
+      "independent_evidence_count": 0,
+      "prediction": {
+        "status": "unavailable",
+        "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "on_target": null,
+        "off_targets": {},
+        "provider_name": "null_prediction_provider",
+        "reason": "Independent potency/selectivity predictor is not configured.",
+        "metadata": {}
+      },
+      "docking": {
+        "status": "unavailable",
+        "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+        "provider_name": "null_docking_provider",
+        "on_target_score": null,
+        "off_target_scores": {},
+        "supports_selectivity": null,
+        "independent": false,
+        "reason": "Docking backend is not configured.",
+        "metadata": {}
+      },
+      "chemistry": {
+        "valid": true,
+        "hard_rejects": [],
+        "alerts": [
+          "filter_catalog:Aliphatic_long_chain"
+        ],
+        "parent_similarity": 0.8181818181818182,
+        "seed_similarity": 0.8181818181818182,
+        "novelty": 0.18181818181818177,
+        "novelty_utility": 0.7272727272727271,
+        "delta_mw": 44.450999999999965,
+        "heavy_atom_change": 0,
+        "changed_bonds": 2,
+        "sa_score": 2.4043529343716283
+      },
+      "evidence_score": 0.564,
+      "rerank_score": 0.5423410737726709,
+      "final_rank": 1,
+      "validation_actions": [
+        "Run an independent on/off-target potency or selectivity predictor.",
+        "Run target-specific structural validation or docking as corroborative evidence.",
+        "Prioritize experimental on-target and required off-target activity assays.",
+        "Review synthesis feasibility and medicinal-chemistry liabilities before synthesis."
+      ],
+      "provenance": {
+        "rule_ids": [
+          "R_CL_TO_BR"
+        ],
+        "candidate_id": "CAND_128e1d53f628",
+        "source": "stage_a_mmp",
+        "family": "halogen",
+        "gate": "needs_validation",
+        "gate_reasons": [
+          "rule_support_below_threshold:1<2",
+          "validation_tool_unavailable"
+        ],
+        "validation_status": "tool_unavailable",
+        "validation_evidence": {
+          "available": false,
+          "reason": "Validation attempt budget exhausted for this candidate.",
+          "metadata": {
+            "attempts": 1,
+            "budget": 1
+          }
+        },
+        "per_off": [
+          {
+            "off_target_id": "CHEMBL1824",
+            "weight": 1.0,
+            "delta_off": -0.075,
+            "delta_S": 0.1375,
+            "raw_delta_off": -0.3,
+            "raw_delta_S": 0.55,
+            "delta_off_iqr": null,
+            "delta_S_iqr": null,
+            "support_n": 1,
+            "independent_rule_n": 1,
+            "supporting_rule_ids": [
+              "R_CL_TO_BR"
+            ],
+            "sign_consistency": 1.0,
+            "direction_agreement": 1.0,
+            "evidence_mode": "direct_paired",
+            "confidence": "medium",
+            "coverage_missing": false,
+            "provenance_ids": [
+              "FIXTURE_MMP_1"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "rejected_candidates": [],
+  "provider_audits": [
+    {
+      "provider_name": "null_prediction_provider",
+      "provider_type": "prediction",
+      "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "status": "unavailable",
+      "latency_sec": 0.0001123669999287813,
+      "reason": "Independent potency/selectivity predictor is not configured.",
+      "metadata": {}
+    },
+    {
+      "provider_name": "null_docking_provider",
+      "provider_type": "docking",
+      "candidate_smiles": "COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1",
+      "status": "unavailable",
+      "latency_sec": 0.0001046050001605181,
+      "reason": "Docking backend is not configured.",
+      "metadata": {}
+    }
+  ],
+  "metrics": {
+    "candidate_count": 1,
+    "supported_count": 0,
+    "validation_count": 1,
+    "rejected_count": 0,
+    "support_rate": 0.0,
+    "invalid_or_hard_safety_reject_count": 0,
+    "independent_evidence_candidate_count": 0,
+    "selected_worst_case_delta_selectivity": 0.1375,
+    "selected_delta_on": 0.0625
+  },
+  "report_markdown": "# Stage C Final Candidate Review\n\n- Stage B context: `CHEMBL203_CHEMBL1824_46a9287c04`\n- Stage B status: `needs_validation`\n- Stage C status: `needs_validation`\n- On-target: `CHEMBL203`\n- Off-targets: `CHEMBL1824`\n\n## Selected candidate\n\n- Decision: **NEEDS_VALIDATION**\n- Candidate ID: `CAND_128e1d53f628`\n- SMILES: `COc1cc2ncnc(Nc3ccc(F)c(Br)c3)c2cc1OCCCN1CCOCC1`\n- Worst-case Δselectivity: `0.138`\n- Δon-target: `0.062`\n- Evidence score: `0.564`\n- Rerank score: `0.542`\n\n### Decision reasons\n\n- candidate_activity_is_not_exact_measured\n- independent_prediction_missing_or_insufficient\n\n### Recommended validation\n\n- Run an independent on/off-target potency or selectivity predictor.\n- Run target-specific structural validation or docking as corroborative evidence.\n- Prioritize experimental on-target and required off-target activity assays.\n- Review synthesis feasibility and medicinal-chemistry liabilities before synthesis.\n\n## Candidate table\n\n| Rank | Decision | Candidate | Worst ΔS | Δon | Evidence | Score |\n|---:|---|---|---:|---:|---:|---:|\n| 1 | NEEDS_VALIDATION | `CAND_128e1d53f628` | 0.138 | 0.062 | 0.564 | 0.542 |\n\n## Interpretation boundary\n\n`SUPPORTED_COMPUTATIONAL` means prioritized by independent computational evidence; it is not an experimental efficacy claim. Docking, when present, is corroborative and does not replace potency/selectivity validation.\n",
+  "run_manifest": {
+    "stage_c_config": {
+      "final_top_k": 5,
+      "min_worst_delta_selectivity": 0.1,
+      "max_on_target_drop": 1.0,
+      "max_required_off_worsen": 0.2,
+      "require_required_off_coverage": true,
+      "min_stage_b_confidence": "medium",
+      "allow_computational_support": true,
+      "min_independent_prediction_confidence": "high",
+      "require_independent_prediction_for_estimated": true,
+      "require_docking_for_computational_support": false,
+      "min_parent_similarity": 0.55,
+      "min_seed_similarity": 0.4,
+      "max_delta_mw": 100.0,
+      "max_heavy_atom_change": 8,
+      "max_changed_bonds": 6,
+      "max_sa_score": 6.0,
+      "reject_tier2_alerts": false,
+      "w_selectivity": 1.0,
+      "w_on_retention": 0.35,
+      "w_evidence": 0.6,
+      "w_novelty": 0.2,
+      "w_uncertainty": 0.35,
+      "w_safety_alert": 0.1,
+      "w_docking_support": 0.1,
+      "novelty_target": 0.25,
+      "novelty_tolerance": 0.25,
+      "confidence_rank": {
+        "none": 0,
+        "low": 1,
+        "medium": 2,
+        "high": 3
+      }
+    },
+    "project_root": "/mnt/data/FoS-feature-stage-c-v070/examples/stage_b_v060",
+    "prediction_provider": "null_prediction_provider",
+    "docking_provider": "null_docking_provider",
+    "stage_b_manifest": {
+      "timestamp_utc": "2026-07-30T02:45:29.900140+00:00",
+      "git_commit": null,
+      "config_hash": "621cc33a9a8517b3",
+      "stage_b_config": {
+        "max_iterations": 3,
+        "final_top_k": 3,
+        "beam_k": null,
+        "max_retries_per_iteration": 3,
+        "max_expansions_per_run": 1,
+        "max_family_switches_per_run": 2,
+        "max_backtracks_per_run": 2,
+        "max_unvalidated_depth": 2,
+        "expansion_thresholds": [
+          0.35,
+          0.25
+        ],
+        "max_validation_attempts_per_candidate": 1,
+        "max_prediction_calls_per_run": 4,
+        "enable_dynamic_discovery": false,
+        "max_discovery_rounds": 1,
+        "max_retrieval_candidates": 5,
+        "max_discovered_transforms": 10,
+        "max_discovered_products": 20,
+        "discovery_min_selectivity_gain": 0.3,
+        "max_on_target_drop": 1.0,
+        "max_required_off_worsen": 0.2,
+        "min_selectivity_gain": 0.1,
+        "require_required_off_coverage": true,
+        "min_rule_support_n": 2,
+        "min_rule_confidence": "medium",
+        "min_sign_consistency": 0.7,
+        "severe_direction_conflict": 0.5,
+        "shrinkage_k_prior": 3.0,
+        "high_dispersion_iqr": 1.0,
+        "high_dispersion_factor": 0.5,
+        "max_abs_delta_on": 1.0,
+        "max_abs_delta_off": 1.0,
+        "min_parent_similarity": 0.55,
+        "min_seed_similarity": 0.4,
+        "max_delta_mw": 100.0,
+        "max_heavy_atom_change": 8,
+        "max_changed_bonds": 6,
+        "max_sa_score": 6.0,
+        "reject_tier2_alerts": false,
+        "stall_patience": 2,
+        "plateau_epsilon": 0.05,
+        "w_selectivity": 1.0,
+        "w_on_retention": 0.4,
+        "w_confidence": 0.0,
+        "off_weights": {
+          "required": 1.0,
+          "selected": 0.7,
+          "monitor": 0.2,
+          "dropped": 0.0
+        },
+        "trajectory_window": 5,
+        "confidence_score": {
+          "high": 1.0,
+          "medium": 0.6,
+          "low": 0.3,
+          "none": 0.0
+        },
+        "random_seed": 42,
+        "plan_prompt_version": "v2",
+        "assess_prompt_version": "v2",
+        "reflect_prompt_version": "v1"
+      },
+      "llm": {
+        "model": "heuristic",
+        "temperature": null,
+        "seed": 42
+      },
+      "prompt_versions": {
+        "plan": "v2",
+        "assess": "v2",
+        "reflect": "v1"
+      },
+      "off_target_mode": "hint_only",
+      "stage_a_timing_seconds": {
+        "normalize_and_resolve": 0.002,
+        "off_target_discovery": 0.0001,
+        "evidence_and_pair_cache": 0.0283,
+        "seed_local_graph": 0.0059,
+        "save_context": 0.0006,
+        "render_figures": 0.0,
+        "total": 0.037
+      },
+      "stage_a_cache_summary": {
+        "target_hits": 0,
+        "target_misses": 2,
+        "pair_hits": 0,
+        "pair_misses": 1
+      }
+    }
+  }
+}

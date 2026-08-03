@@ -1,0 +1,2 @@
+{"schema_version":"1.0","episode_id":"PAIR_POS_001","canonical_smiles":"REPLACE_WITH_SEED_SMILES","p_activity_on":7.0,"p_activity_off":{"CHEMBL_OFF":6.5},"hard_safety_violation":false,"is_reachable":true,"is_feasible":true,"is_reference_frontier":false,"source":"held_out_measured"}
+{"schema_version":"1.0","episode_id":"PAIR_POS_001","canonical_smiles":"REPLACE_WITH_HIDDEN_ENDPOINT_SMILES","p_activity_on":6.8,"p_activity_off":{"CHEMBL_OFF":4.8},"hard_safety_violation":false,"is_reachable":true,"is_feasible":true,"is_reference_frontier":true,"source":"held_out_measured"}

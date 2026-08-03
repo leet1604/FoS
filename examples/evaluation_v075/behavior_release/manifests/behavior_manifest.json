@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0",
+  "benchmark_track": "agent_behavior",
+  "n_episodes": 12,
+  "n_candidates": 18,
+  "n_oracle_rows": 30,
+  "fixture_types": [
+    "positive_decision",
+    "no_valid_move",
+    "low_evidence",
+    "safety_challenge",
+    "tool_failure",
+    "budget_exhaustion"
+  ],
+  "public_episodes": "examples/evaluation_v075/behavior_release/public/behavior_fixtures.jsonl",
+  "action_spaces": "examples/evaluation_v075/behavior_release/manifests/behavior_action_spaces.jsonl",
+  "private_oracle": "examples/evaluation_v075/behavior_release/private_oracle/behavior_oracle.jsonl",
+  "note": "Controlled fixtures validate agent behavior, not biological activity."
+}

@@ -1,0 +1,2 @@
+episode_id,source_compound,hidden_compound,hidden_document_ids,actual_delta_on,actual_delta_selectivity,predicted_delta_on_from_visible_support,predicted_delta_selectivity_from_visible_support,portable_support_n,supporting_pair_ids
+CHEMBL203__CHEMBL1824__replay__CHEMBL3814021__CHEMBL3633932,CHEMBL3814021,CHEMBL3633932,['CHEMBL3632549'],1.8049999999999997,2.624999999999999,1.6400000000000001,2.5475000000000003,2,"['MMP_574aeadb9020::CHEMBL94068__CHEMBL93464::1', 'MMP_aa389543d7c5::CHEMBL90595__CHEMBL91867::1']"

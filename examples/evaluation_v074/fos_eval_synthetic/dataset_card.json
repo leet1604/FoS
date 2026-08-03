@@ -1,0 +1,8 @@
+{
+  "schema_version": "2.0",
+  "release_id": "fos_eval_synthetic_v074",
+  "frozen": true,
+  "n_files": 14,
+  "checksums_path": "examples/evaluation_v074/fos_eval_synthetic/manifests/checksums.sha256",
+  "leakage_audit_passed": true
+}

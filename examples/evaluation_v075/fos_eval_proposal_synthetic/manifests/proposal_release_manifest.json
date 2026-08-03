@@ -1,0 +1,22 @@
+{
+  "schema_version": "2.0",
+  "release_type": "proposal_pilot",
+  "n_episodes": 13,
+  "n_action_candidates": 19,
+  "n_oracle_rows": 32,
+  "inputs": {
+    "measured_release": "examples/evaluation_v074/fos_eval_synthetic",
+    "behavior_release": "examples/evaluation_v075/behavior_release"
+  },
+  "files": {
+    "episodes": "examples/evaluation_v075/fos_eval_proposal_synthetic/public/proposal_episodes.jsonl",
+    "action_spaces": "examples/evaluation_v075/fos_eval_proposal_synthetic/manifests/proposal_action_spaces.jsonl",
+    "oracle": "examples/evaluation_v075/fos_eval_proposal_synthetic/private_oracle/proposal_oracle.jsonl"
+  },
+  "checksums": {
+    "episodes": "a921436cab8f3252696facfb2650fec4d22e9ea165adecfd039104a954994043",
+    "action_spaces": "c6ea6b15206f7a5ee1b906bd6a2723ad3fb538cfc0afee5712779f07d5bbbec3",
+    "oracle": "de90ed1b989a27cc1058bf395707b17845b4239313d9eb9fa63542ea74e5dc77"
+  },
+  "warning": "Controlled behavior fixtures are not biological activity evidence."
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang='en'><head><meta charset='utf-8'><title>FoS Evaluation Pair Density Audit</title>
+<style>
+body{font-family:Arial,sans-serif;margin:28px;color:#1f2937}h1{font-size:24px}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #d1d5db;padding:7px;vertical-align:top}
+th{background:#eef2ff;position:sticky;top:0}tr:nth-child(even){background:#f9fafb}
+.ready{color:#047857;font-weight:700}.conditional{color:#a16207;font-weight:700}.not_ready{color:#b91c1c;font-weight:700}
+</style></head><body><h1>FoS Evaluation Pair Density Audit</h1><table border="1" class="dataframe profile">
+  <thead>
+    <tr style="text-align: right;">
+      <th>schema_version</th>
+      <th>on_target</th>
+      <th>off_target</th>
+      <th>n_paired_compounds</th>
+      <th>n_documents</th>
+      <th>n_compounds_with_document</th>
+      <th>document_coverage</th>
+      <th>earliest_year</th>
+      <th>latest_year</th>
+      <th>n_compounds_with_year</th>
+      <th>year_coverage</th>
+      <th>n_scaffolds</th>
+      <th>largest_scaffold_fraction</th>
+      <th>n_rules</th>
+      <th>n_rules_support_ge_2</th>
+      <th>n_rules_support_ge_5</th>
+      <th>selectivity_min</th>
+      <th>selectivity_median</th>
+      <th>selectivity_max</th>
+      <th>selectivity_iqr</th>
+      <th>n_potential_positive_seeds</th>
+      <th>n_potential_positive_endpoints</th>
+      <th>split_recommendation</th>
+      <th>benchmark_readiness</th>
+      <th>limitations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2.0</td>
+      <td>SYN_ON</td>
+      <td>SYN_OFF</td>
+      <td>5</td>
+      <td>3</td>
+      <td>5</td>
+      <td>1.0</td>
+      <td>2018</td>
+      <td>2020</td>
+      <td>5</td>
+      <td>1.0</td>
+      <td>3</td>
+      <td>0.4</td>
+      <td>6</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.5</td>
+      <td>0.8</td>
+      <td>2.0</td>
+      <td>0.9</td>
+      <td>3</td>
+      <td>2</td>
+      <td>document_time</td>
+      <td>not_ready</td>
+      <td>Too few paired compounds or potential positive seeds for a stable benchmark.</td>
+    </tr>
+  </tbody>
+</table></body></html>

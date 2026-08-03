@@ -228,3 +228,90 @@ class RDKitMMPExtractor:
 
         rules.sort(key=lambda rule: (rule.delta_selectivity, rule.support_n), reverse=True)
         return rules[: self.config.max_rules]
+
+
+def aggregate_portable_mmp_rules(
+    exact_rules: list[MMPRule],
+    *,
+    minimum_support: int = 2,
+    max_rules: int = 500,
+) -> list[MMPRule]:
+    """Aggregate exact-core MMP observations into transferable fragment edits.
+
+    Exact Stage A rules retain a specific core and therefore cannot transfer a
+    substituent edit to a new scaffold. This helper pools the same
+    ``from_fragment -> to_fragment`` edit across distinct cores. The resulting
+    rule has ``core_fragment=None`` and is applied to any candidate whose
+    single-cut variable fragment matches ``from_fragment``.
+
+    Portable rules are intentionally marked with a distinct evidence mode and
+    should be calibrated separately from exact-core rules.
+    """
+
+    grouped: dict[tuple[str, str], list[MMPSupportPair]] = defaultdict(list)
+    core_sets: dict[tuple[str, str], set[str]] = defaultdict(set)
+    for rule in exact_rules:
+        if not rule.from_fragment or not rule.to_fragment:
+            continue
+        key = (rule.from_fragment, rule.to_fragment)
+        grouped[key].extend(rule.supporting_pairs)
+        if rule.core_fragment:
+            core_sets[key].add(rule.core_fragment)
+
+    portable: list[MMPRule] = []
+    for (from_frag, to_frag), pairs in grouped.items():
+        # Distinct pair IDs avoid double counting if the exact extractor emitted
+        # duplicate observations through equivalent fragmentations.
+        unique: dict[str, MMPSupportPair] = {}
+        for pair in pairs:
+            pair_id = pair.pair_id or f"{pair.source_compound}__{pair.target_compound}"
+            unique[pair_id] = pair
+        observations = list(unique.values())
+        if len(observations) < minimum_support:
+            continue
+        delta_on_values = [pair.delta_on for pair in observations]
+        delta_off_values = [pair.delta_off for pair in observations]
+        delta_s_values = [pair.delta_selectivity for pair in observations]
+        delta_on_std = pstdev(delta_on_values) if len(delta_on_values) > 1 else None
+        delta_off_std = pstdev(delta_off_values) if len(delta_off_values) > 1 else None
+        delta_s_std = pstdev(delta_s_values) if len(delta_s_values) > 1 else None
+        representative_sign = 1 if median(delta_s_values) >= 0 else -1
+        sign_consistency = sum(
+            1
+            for value in delta_s_values
+            if (1 if value >= 0 else -1) == representative_sign
+        ) / len(delta_s_values)
+        digest = hashlib.sha1(f"portable|{from_frag}|{to_frag}".encode()).hexdigest()[:12]
+        provenance_ids = list(
+            dict.fromkeys(pid for pair in observations for pid in pair.provenance_ids)
+        )
+        portable.append(
+            MMPRule(
+                rule_id=f"PMMP_{digest}",
+                core_fragment=None,
+                from_fragment=from_frag,
+                to_fragment=to_frag,
+                description=f"portable {from_frag} → {to_frag}",
+                evidence_mode="portable_fragment_transform",
+                delta_on=float(median(delta_on_values)),
+                delta_off=float(median(delta_off_values)),
+                delta_selectivity=float(median(delta_s_values)),
+                delta_on_std=delta_on_std,
+                delta_off_std=delta_off_std,
+                delta_selectivity_std=delta_s_std,
+                delta_on_iqr=float(np.quantile(delta_on_values, 0.75) - np.quantile(delta_on_values, 0.25)) if len(delta_on_values) > 1 else 0.0,
+                delta_off_iqr=float(np.quantile(delta_off_values, 0.75) - np.quantile(delta_off_values, 0.25)) if len(delta_off_values) > 1 else 0.0,
+                delta_selectivity_iqr=float(np.quantile(delta_s_values, 0.75) - np.quantile(delta_s_values, 0.25)) if len(delta_s_values) > 1 else 0.0,
+                support_n=len(observations),
+                sign_consistency=round(sign_consistency, 6),
+                confidence=RDKitMMPExtractor._confidence(len(observations), delta_s_std),
+                supporting_pairs=observations,
+                supporting_pair_ids=[
+                    pair.pair_id or f"{pair.source_compound}__{pair.target_compound}"
+                    for pair in observations
+                ],
+                provenance_ids=provenance_ids,
+            )
+        )
+    portable.sort(key=lambda rule: (rule.delta_selectivity, rule.support_n), reverse=True)
+    return portable[:max_rules]

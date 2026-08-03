@@ -1,0 +1,2 @@
+episode_id,episode_kind,seed_compound_id,seed_smiles,seed_p_on,seed_selectivity,n_action_candidates,n_oracle_covered,n_oracle_success,max_oracle_delta_s
+SYN_ON__SYN_OFF__positive__001,positive,C_ME,Cc1ccc(-c2ccccn2)cc1,7.0,0.5,1,1,1,1.5

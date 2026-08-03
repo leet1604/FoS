@@ -1,0 +1,15 @@
+FoS v0.7.5 proposal-evaluation package
+
+Includes:
+- evaluation framework source and tests
+- one real EGFR/HER2 measured replay release
+- 12 controlled behavior fixtures
+- combined proposal pilot release
+- repeated-run and report outputs
+- pair profile and calibration smoke-test outputs
+- proposal Section 4 draft, implementation/test docs, Colab notebook
+
+Excludes:
+- raw ChEMBL HTTP cache
+- local evidence_live cache
+- Python cache files

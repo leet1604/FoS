@@ -1,0 +1,22 @@
+{
+  "schema_version": "2.0",
+  "release_type": "proposal_pilot",
+  "n_episodes": 13,
+  "n_action_candidates": 19,
+  "n_oracle_rows": 32,
+  "inputs": {
+    "measured_release": "evaluation/releases/egfr_her2_replay_doc3632549",
+    "behavior_release": "examples/evaluation_v075/behavior_release"
+  },
+  "files": {
+    "episodes": "evaluation/releases/fos_eval_proposal_real_pilot_v075/public/proposal_episodes.jsonl",
+    "action_spaces": "evaluation/releases/fos_eval_proposal_real_pilot_v075/manifests/proposal_action_spaces.jsonl",
+    "oracle": "evaluation/releases/fos_eval_proposal_real_pilot_v075/private_oracle/proposal_oracle.jsonl"
+  },
+  "checksums": {
+    "episodes": "5f951fa9c24f844c1709a0cf65465e910a3a6965dd9b958515c1472452af039d",
+    "action_spaces": "5a427942c0642a8c73ad71ee6bc07393fe503f6707eca51daf8891379a03aaf8",
+    "oracle": "b70cca5e6425ea7153da02efab09621ba3f1531edbac92de68ddb8999afffb22"
+  },
+  "warning": "Controlled behavior fixtures are not biological activity evidence."
+}

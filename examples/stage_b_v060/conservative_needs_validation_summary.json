@@ -1,0 +1,45 @@
+{
+  "optimization": {
+    "optimized": false,
+    "accepted_steps": 0,
+    "final_delta_on": null,
+    "per_off_delta_selectivity": {
+      "CHEMBL1824": null
+    },
+    "worst_off_delta_selectivity": null,
+    "best_beam_score": null
+  },
+  "trajectory": {
+    "steps": 7,
+    "positive_step_rate": null,
+    "candidate_rejection_rate": 1.0,
+    "expansion_steps": 5,
+    "reflection_steps": 0,
+    "backtrack_steps": 0,
+    "recovery_rate": 0.0
+  },
+  "evidence": {
+    "accepted_value_sources": {},
+    "validation_value_sources": {
+      "mmp_estimated": 1
+    },
+    "rejected_sources": {
+      "stage_a_mmp": 1
+    },
+    "validation_queue_size": 1,
+    "rejected_candidate_size": 1,
+    "safety_alert_count": 2,
+    "safety_reject_count": 0
+  },
+  "agent": {
+    "llm_calls": 0,
+    "llm_fallbacks": 0,
+    "tool_calls": 2,
+    "tool_status_counts": {
+      "unavailable": 1,
+      "budget_exhausted": 1
+    },
+    "mean_llm_latency_sec": null,
+    "mean_tool_latency_sec": 3.6854999052593485e-06
+  }
+}

@@ -1,0 +1,49 @@
+FoS Stage B v0.6.0 implementation package
+
+Core additions
+- src/stage_b/fallback_discovery.py
+- src/stage_b/metrics.py
+- src/stage_b/mini_fixture.py
+- src/stage_b/transform_family.py
+
+Core modifications
+- src/stage_b/config.py
+- src/stage_b/critic.py
+- src/stage_b/loop.py
+- src/stage_b/schemas.py
+- src/stage_b/state_store.py
+- src/stage_b/tool_router.py
+- src/stage_b/tools/base.py
+- src/stage_b/tools/neighbor_knn.py
+
+New operational scripts
+- scripts/build_mini_real_fixture.py
+- scripts/run_stage_b_mini_real.py
+- scripts/export_cache_bundle.py
+- scripts/import_cache_bundle.py
+- scripts/summarize_stage_b_run.py
+- scripts/compare_stage_b_runs.py
+- scripts/benchmark_mini_real_repeats.py
+
+Updated runners
+- scripts/run_stage_b_fixture_v2.py
+- scripts/run_stage_b_live_pair.py
+- scripts/run_stage_b_live_fast.py
+- scripts/run_stage_b_live_full.py
+
+New regression tests
+- tests/unit/stage_b/test_validation_v060.py
+- tests/unit/stage_b/test_discovery_v060.py
+- tests/unit/stage_b/test_multi_off_v060.py
+- tests/unit/stage_b/test_metrics_v060.py
+- tests/integration/test_stage_b_v060_paths.py
+
+Documentation
+- CHANGELOG_V060.md
+- IMPLEMENTATION_STATUS_V060.md
+- TEST_REPORT_V060.md
+- examples/stage_b_v060/*
+
+Validation
+- 28 pytest tests passed
+- python compileall succeeded

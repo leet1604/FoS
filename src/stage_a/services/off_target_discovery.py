@@ -27,12 +27,21 @@ class OffTargetDiscoveryService:
         on_target: Target,
         user_hint: str | None = None,
         user_hints: list[tuple[str, OffTargetRequirement, str | None]] | None = None,
+        mode: str = "hint_plus_auto",
     ) -> list[OffTargetCandidate]:
-        hints = list(user_hints or [])
-        if user_hint:
+        if mode not in {"hint_only", "hint_plus_auto", "auto"}:
+            raise ValueError(f"Unsupported off-target mode: {mode}")
+
+        hints = [] if mode == "auto" else list(user_hints or [])
+        if user_hint and mode != "auto":
             hints.insert(0, (user_hint, OffTargetRequirement.REQUIRED, None))
 
-        discovered = self.signal_provider.discover(molecule, on_target)
+        if mode == "hint_only":
+            if not hints:
+                raise ValueError("off_target_mode='hint_only' requires at least one hint")
+            discovered = []
+        else:
+            discovered = self.signal_provider.discover(molecule, on_target)
         dedup: dict[str, OffTargetCandidate] = {
             candidate.target.stable_id: candidate for candidate in discovered
         }

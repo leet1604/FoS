@@ -1,0 +1,44 @@
+{
+  "optimization": {
+    "optimized": true,
+    "accepted_steps": 2,
+    "final_delta_on": 0.40000000000000036,
+    "per_off_delta_selectivity": {
+      "CHEMBL1824": 0.85
+    },
+    "worst_off_delta_selectivity": 0.85,
+    "best_beam_score": 1.0100000000000002
+  },
+  "trajectory": {
+    "steps": 6,
+    "positive_step_rate": 1.0,
+    "candidate_rejection_rate": 0.0,
+    "expansion_steps": 1,
+    "reflection_steps": 0,
+    "backtrack_steps": 1,
+    "recovery_rate": 0.3333333333333333
+  },
+  "evidence": {
+    "accepted_value_sources": {
+      "exact_measured": 1,
+      "mmp_estimated": 1
+    },
+    "validation_value_sources": {},
+    "rejected_sources": {
+      "stage_a_mmp": 4,
+      "measured_analog_retrieval": 1
+    },
+    "validation_queue_size": 0,
+    "rejected_candidate_size": 5,
+    "safety_alert_count": 5,
+    "safety_reject_count": 1
+  },
+  "agent": {
+    "llm_calls": 0,
+    "llm_fallbacks": 0,
+    "tool_calls": 0,
+    "tool_status_counts": {},
+    "mean_llm_latency_sec": null,
+    "mean_tool_latency_sec": null
+  }
+}

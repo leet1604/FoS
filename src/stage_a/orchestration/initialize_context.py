@@ -87,6 +87,7 @@ def initialize_context(
         on_target=on_target,
         user_hint=request.off_target_hint,
         user_hints=hint_tuples,
+        mode=request.off_target_mode,
     )[: request.top_k_off_targets]
     timings["off_target_discovery"] = time.perf_counter() - step_started
     _progress("2/8", f"Returned {len(candidates)} candidate(s)", step_started)

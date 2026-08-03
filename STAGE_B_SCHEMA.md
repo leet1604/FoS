@@ -60,3 +60,18 @@
 ```
 
 MMP rule은 `delta_on`, `delta_off`, `delta_S`, `support_n`, `sign_consistency`, `evidence_mode`, uncertainty와 최대 소수의 local supporting pair만 반환한다.
+
+## v0.7.2 candidate gate
+
+```json
+{
+  "gate": "eligible|provisional|needs_validation|rejected",
+  "gate_reasons": [
+    "provisional:mmp_support_and_sign_consistency"
+  ]
+}
+```
+
+Accepted trajectory steps additionally retain the gate in both `trajectory[*]`
+and `accepted_candidates[*].gate`. A provisional final tip is reported to Stage C
+with `stage_b_gate="provisional"`.

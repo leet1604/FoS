@@ -1,0 +1,11 @@
+{
+  "on_target_id": "SYN_ON",
+  "off_target_id": "SYN_OFF",
+  "n_paired": 5,
+  "n_rules": 6,
+  "n_supporting_pairs": 8,
+  "sources": [
+    "synthetic_test_fixture"
+  ],
+  "saved_at": "2026-08-02T11:42:45.439331+00:00"
+}

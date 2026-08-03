@@ -1,0 +1,54 @@
+{
+  "schema_version": "2.0",
+  "release_id": "fos_eval_synthetic_v074",
+  "passed": true,
+  "checks": [
+    {
+      "name": "compound_partition_disjoint",
+      "passed": true,
+      "details": "No compound IDs overlap.",
+      "count": 0
+    },
+    {
+      "name": "document_partition_disjoint",
+      "passed": true,
+      "details": "No document IDs overlap.",
+      "count": 0
+    },
+    {
+      "name": "visible_rules_exclude_hidden_provenance",
+      "passed": true,
+      "details": "Visible MMP rules contain no hidden provenance IDs.",
+      "count": 0
+    },
+    {
+      "name": "public_episodes_exclude_reference_endpoints",
+      "passed": true,
+      "details": "Reference endpoint identities are absent from public episodes.",
+      "count": 0
+    },
+    {
+      "name": "public_episode_has_no_oracle_path",
+      "passed": true,
+      "details": "No oracle path is exposed to the agent.",
+      "count": 0
+    },
+    {
+      "name": "every_episode_has_frozen_action_space",
+      "passed": true,
+      "details": "Every episode has at least one frozen action-space row.",
+      "count": 0
+    }
+  ],
+  "visible_hash": "91a6e862f65e34c79de4471be5403d1d6c17dadf4366967379902a3e1ff3b232",
+  "oracle_hash": "5ac681372bc4f15db82eb091078c13686a7c66afde7f9cf8f4863db0dda71678",
+  "action_space_hash": "a45f73896ef753036e6ebae8b930a8d7e37701b7c5de4841a4e431ceab6d0afe",
+  "metadata": {
+    "n_visible_compounds": 5,
+    "n_hidden_compounds": 1,
+    "n_public_episodes": 1,
+    "n_oracle_rows": 2,
+    "n_action_rows": 1,
+    "n_hidden_oracle_smiles": 2
+  }
+}

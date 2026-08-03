@@ -1,0 +1,60 @@
+{
+  "schema_version": "2.0",
+  "release_id": "egfr_her2_replay_doc3632549",
+  "passed": true,
+  "checks": [
+    {
+      "name": "compound_partition_disjoint",
+      "passed": true,
+      "details": "No compound IDs overlap.",
+      "count": 0
+    },
+    {
+      "name": "document_partition_disjoint",
+      "passed": true,
+      "details": "No document IDs overlap.",
+      "count": 0
+    },
+    {
+      "name": "visible_rules_exclude_hidden_provenance",
+      "passed": true,
+      "details": "Visible MMP rules contain no hidden provenance IDs.",
+      "count": 0
+    },
+    {
+      "name": "public_episodes_exclude_reference_endpoints",
+      "passed": true,
+      "details": "Reference endpoint identities are absent from public episodes.",
+      "count": 0
+    },
+    {
+      "name": "public_episode_has_no_oracle_path",
+      "passed": true,
+      "details": "No oracle path is exposed to the agent.",
+      "count": 0
+    },
+    {
+      "name": "public_action_space_excludes_oracle_labels",
+      "passed": true,
+      "details": "Frozen public action spaces contain no oracle success/coverage labels.",
+      "count": 0
+    },
+    {
+      "name": "every_episode_has_frozen_action_space",
+      "passed": true,
+      "details": "Every episode has at least one frozen action-space row.",
+      "count": 0
+    }
+  ],
+  "visible_hash": "31f242553107dc4aae0b08634b4e33a0cfcbd5efd349af9807b04fe7eb886238",
+  "oracle_hash": "5e14df42c3862b4ac667af4c26ac121c46c7a4df55bb7c930913140481af28a2",
+  "action_space_hash": "ef8402c1fc3f8328b5f9035c1fcd9c8192db4ca7cb5276d926759c9fe15f7ca0",
+  "metadata": {
+    "n_visible_compounds": 1530,
+    "n_hidden_compounds": 13,
+    "n_public_episodes": 1,
+    "n_oracle_rows": 2,
+    "n_action_rows": 1,
+    "n_hidden_oracle_smiles": 2
+  }
+}

@@ -69,6 +69,10 @@ class ActivityHarmonizer:
             "off_mad",
             "provenance_ids",
             "sources",
+            "document_ids",
+            "publication_years",
+            "earliest_year",
+            "latest_year",
         ]
         if not records:
             return HarmonizedActivities(
@@ -88,6 +92,9 @@ class ActivityHarmonizer:
                     "activity_type": record.activity_type,
                     "assay_id": record.assay_id,
                     "assay_confidence": record.assay_confidence,
+                    "assay_type": record.assay_type,
+                    "document_id": record.document_id,
+                    "publication_year": record.publication_year,
                     "provenance_id": (
                         f"{record.provenance.source}:{record.provenance.source_record_id}"
                     ),
@@ -111,6 +118,9 @@ class ActivityHarmonizer:
                 activity_mad=("p_activity", self._mad),
                 mean_assay_confidence=("assay_confidence", "mean"),
                 assay_ids=("assay_id", lambda values: sorted(set(values))),
+                assay_types=("assay_type", lambda values: sorted({str(v) for v in values if v is not None})),
+                document_ids=("document_id", lambda values: sorted({str(v) for v in values if v is not None})),
+                publication_years=("publication_year", lambda values: sorted({int(v) for v in values if v is not None})),
                 provenance_ids=("provenance_id", lambda values: sorted(set(values))),
                 sources=("source", lambda values: sorted(set(values))),
             )
@@ -131,6 +141,9 @@ class ActivityHarmonizer:
                 activity_mad=("activity_mad", "max"),
                 mean_assay_confidence=("mean_assay_confidence", "mean"),
                 assay_ids=("assay_ids", lambda rows: sorted({x for row in rows for x in row})),
+                assay_types=("assay_types", lambda rows: sorted({x for row in rows for x in row})),
+                document_ids=("document_ids", lambda rows: sorted({x for row in rows for x in row})),
+                publication_years=("publication_years", lambda rows: sorted({int(x) for row in rows for x in row})),
                 provenance_ids=(
                     "provenance_ids",
                     lambda rows: sorted({x for row in rows for x in row}),
@@ -138,6 +151,9 @@ class ActivityHarmonizer:
                 sources=("sources", lambda rows: sorted({x for row in rows for x in row})),
             )
         )
+
+        grouped["earliest_year"] = grouped["publication_years"].map(lambda values: min(values) if values else None)
+        grouped["latest_year"] = grouped["publication_years"].map(lambda values: max(values) if values else None)
 
         values = grouped.pivot_table(
             index=["compound_id", "canonical_smiles"],
@@ -187,6 +203,16 @@ class ActivityHarmonizer:
                         )
                     ),
                     "sources": sorted(set([*on_meta["sources"], *off_meta["sources"]])),
+                    "document_ids": sorted(set([*on_meta.get("document_ids", []), *off_meta.get("document_ids", [])])),
+                    "publication_years": sorted(set([*on_meta.get("publication_years", []), *off_meta.get("publication_years", [])])),
+                    "earliest_year": min(
+                        [v for v in [on_meta.get("earliest_year"), off_meta.get("earliest_year")] if v is not None],
+                        default=None,
+                    ),
+                    "latest_year": max(
+                        [v for v in [on_meta.get("latest_year"), off_meta.get("latest_year")] if v is not None],
+                        default=None,
+                    ),
                 }
             )
 
