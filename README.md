@@ -1,4 +1,4 @@
-# Selectivity Agent Stage A v0.4
+# Selectivity Agent Stage A 
 
 입력 분자와 On-target으로부터 과학적으로 중요한 여러 Off-target을 선정하고, 재사용 가능한 evidence cache와 현재 candidate 중심의 dynamic local graph를 제공하는 Stage A 구현이다.
 
