@@ -104,6 +104,7 @@ class LocalEvidenceBlock(BaseModel):
     confidence_basis: ConfidenceBasis
     neighbors: list[NeighborEvidence]
     applicable_rules: list[ApplicableRuleEvidence]
+    rejected_rules: list[ApplicableRuleEvidence] = Field(default_factory=list)
     verdicts: list[RuleEvidenceVerdict] = Field(default_factory=list)
 
 

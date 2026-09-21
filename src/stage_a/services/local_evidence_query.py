@@ -15,6 +15,7 @@ from stage_a.schemas.evidence import (
     GeneratedProduct,
     NeighborEvidence,
     RuleApplicability,
+    RuleQueryResult,
     SupportingPairEvidence,
 )
 
@@ -118,6 +119,132 @@ class LocalEvidenceQueryService:
         ranked.sort(key=lambda item: item[0], reverse=True)
         return [item for _, item in ranked[:limit]]
 
+    def _build_rule_evidence(
+        self,
+        candidate_smiles: str,
+        rule: MMPRule,
+        pair_frame: pd.DataFrame,
+        off_target_id: str,
+        route: str,
+        applicable: bool,
+        generated: list[str],
+        match_count: int,
+        max_supporting_pairs_per_rule: int,
+    ) -> ApplicableRuleEvidence:
+        return ApplicableRuleEvidence(
+            rule_id=rule.rule_id,
+            off_target_id=off_target_id,
+            route=route,
+            evidence_mode=rule.evidence_mode,
+            description=rule.description,
+            core_fragment=rule.core_fragment,
+            from_frag=rule.from_fragment or rule.from_smarts,
+            to_frag=rule.to_fragment,
+            reaction_smarts=rule.reaction_smarts,
+            delta_on=rule.delta_on,
+            delta_off=rule.delta_off,
+            delta_S=rule.delta_selectivity,
+            delta_on_std=rule.delta_on_std,
+            delta_off_std=rule.delta_off_std,
+            delta_S_std=rule.delta_selectivity_std,
+            delta_on_iqr=rule.delta_on_iqr,
+            delta_off_iqr=rule.delta_off_iqr,
+            delta_S_iqr=rule.delta_selectivity_iqr,
+            support_n=rule.support_n,
+            sign_consistency=rule.sign_consistency,
+            confidence=rule.confidence.value,
+            applicability=RuleApplicability(
+                applicable=applicable,
+                match_count=match_count,
+                sanitization_passed=bool(generated),
+            ),
+            generated_products=[
+                GeneratedProduct(
+                    canonical_smiles=smiles,
+                    changed_atom_count=self._changed_atom_count(
+                        candidate_smiles,
+                        smiles,
+                    ),
+                )
+                for smiles in generated[:3]
+            ],
+            supporting_pairs=self._supporting_pairs_for_rule(
+                candidate_smiles,
+                rule.rule_id,
+                pair_frame,
+                max_supporting_pairs_per_rule,
+            ),
+            provenance_ids=rule.provenance_ids,
+        )
+
+    def evaluate_rules_from_pair(
+        self,
+        candidate_smiles: str,
+        rules: list[MMPRule],
+        pair_frame: pd.DataFrame,
+        off_target_id: str,
+        route: str,
+        max_rules: int = 15,
+        max_rejected_rules: int = 15,
+        max_supporting_pairs_per_rule: int = 3,
+        min_rule_support_n: int | None = None,
+    ) -> RuleQueryResult:
+        applicable_rules: list[ApplicableRuleEvidence] = []
+        rejected_rules: list[ApplicableRuleEvidence] = []
+
+        for rule in rules:
+            if (
+                min_rule_support_n is not None
+                and rule.support_n < min_rule_support_n
+            ):
+                continue
+
+            applicable, generated, match_count = (
+                self.rule_filter.apply_detailed(
+                    candidate_smiles,
+                    rule,
+                )
+            )
+
+            evidence = self._build_rule_evidence(
+                candidate_smiles=candidate_smiles,
+                rule=rule,
+                pair_frame=pair_frame,
+                off_target_id=off_target_id,
+                route=route,
+                applicable=applicable,
+                generated=generated,
+                match_count=match_count,
+                max_supporting_pairs_per_rule=max_supporting_pairs_per_rule,
+            )
+
+            if applicable:
+                applicable_rules.append(evidence)
+            else:
+                rejected_rules.append(evidence)
+
+        applicable_rules.sort(
+            key=lambda item: (
+                item.delta_S > 0,
+                item.sign_consistency,
+                math.log1p(item.support_n),
+                item.delta_S,
+            ),
+            reverse=True,
+        )
+        rejected_rules.sort(
+            key=lambda item: (
+                item.support_n,
+                item.sign_consistency,
+            ),
+            reverse=True,
+        )
+
+        return RuleQueryResult(
+            applicable_rules=applicable_rules[:max_rules],
+            rejected_rules=rejected_rules[:max_rejected_rules],
+        )
+
     def find_applicable_rules_from_pair(
         self,
         candidate_smiles: str,
@@ -129,71 +256,19 @@ class LocalEvidenceQueryService:
         max_supporting_pairs_per_rule: int = 3,
         min_rule_support_n: int | None = None,
     ) -> list[ApplicableRuleEvidence]:
-        result: list[ApplicableRuleEvidence] = []
-        for rule in rules:
-            if min_rule_support_n is not None and rule.support_n < min_rule_support_n:
-                continue
-            applicable, generated, match_count = self.rule_filter.apply_detailed(
-                candidate_smiles,
-                rule,
-            )
-            if not applicable:
-                continue
-            result.append(
-                ApplicableRuleEvidence(
-                    rule_id=rule.rule_id,
-                    off_target_id=off_target_id,
-                    route=route,
-                    evidence_mode=rule.evidence_mode,
-                    description=rule.description,
-                    core_fragment=rule.core_fragment,
-                    from_frag=rule.from_fragment or rule.from_smarts,
-                    to_frag=rule.to_fragment,
-                    reaction_smarts=rule.reaction_smarts,
-                    delta_on=rule.delta_on,
-                    delta_off=rule.delta_off,
-                    delta_S=rule.delta_selectivity,
-                    delta_on_std=rule.delta_on_std,
-                    delta_off_std=rule.delta_off_std,
-                    delta_S_std=rule.delta_selectivity_std,
-                    delta_on_iqr=rule.delta_on_iqr,
-                    delta_off_iqr=rule.delta_off_iqr,
-                    delta_S_iqr=rule.delta_selectivity_iqr,
-                    support_n=rule.support_n,
-                    sign_consistency=rule.sign_consistency,
-                    confidence=rule.confidence.value,
-                    applicability=RuleApplicability(
-                        applicable=True,
-                        match_count=match_count,
-                        sanitization_passed=bool(generated),
-                    ),
-                    generated_products=[
-                        GeneratedProduct(
-                            canonical_smiles=smiles,
-                            changed_atom_count=self._changed_atom_count(candidate_smiles, smiles),
-                        )
-                        for smiles in generated[:3]
-                    ],
-                    supporting_pairs=self._supporting_pairs_for_rule(
-                        candidate_smiles,
-                        rule.rule_id,
-                        pair_frame,
-                        max_supporting_pairs_per_rule,
-                    ),
-                    provenance_ids=rule.provenance_ids,
-                )
-            )
-        # Reliability-aware ranking: positive ΔS, support, sign agreement, then effect size.
-        result.sort(
-            key=lambda item: (
-                item.delta_S > 0,
-                item.sign_consistency,
-                math.log1p(item.support_n),
-                item.delta_S,
-            ),
-            reverse=True,
+        """Backward-compatible applicable-rule query."""
+        result = self.evaluate_rules_from_pair(
+            candidate_smiles=candidate_smiles,
+            rules=rules,
+            pair_frame=pair_frame,
+            off_target_id=off_target_id,
+            route=route,
+            max_rules=max_rules,
+            max_rejected_rules=0,
+            max_supporting_pairs_per_rule=max_supporting_pairs_per_rule,
+            min_rule_support_n=min_rule_support_n,
         )
-        return result[:max_rules]
+        return result.applicable_rules
 
     def lookup_position_multi(
         self,

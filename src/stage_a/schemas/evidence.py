@@ -64,3 +64,8 @@ class ApplicableRuleEvidence(BaseModel):
     generated_products: list[GeneratedProduct] = Field(default_factory=list)
     supporting_pairs: list[SupportingPairEvidence] = Field(default_factory=list)
     provenance_ids: list[str] = Field(default_factory=list)
+
+
+class RuleQueryResult(BaseModel):
+    applicable_rules: list[ApplicableRuleEvidence] = Field(default_factory=list)
+    rejected_rules: list[ApplicableRuleEvidence] = Field(default_factory=list)

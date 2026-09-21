@@ -303,4 +303,41 @@ class EvidenceGraphBuilder:
                             attributes={"off_target_id": off_id},
                         )
                     )
+            for rule in block.rejected_rules:
+                rule_node_id = f"rule:{off_id}:{rule.rule_id}"
+                graph.nodes.append(
+                    GraphNode(
+                        id=rule_node_id,
+                        node_type="mmp_rule",
+                        attributes=rule.model_dump(
+                            mode="json",
+                            exclude={"supporting_pairs"},
+                        ),
+                    )
+                )
+                verdict = verdict_by_rule.get(rule.rule_id)
+                edge_attributes = {
+                    "off_target_id": off_id,
+                    "support_n": rule.support_n,
+                    "sign_consistency": rule.sign_consistency,
+                }
+                if verdict is not None:
+                    edge_attributes.update(
+                        {
+                            "verdict": verdict.verdict.value,
+                            "reason_codes": verdict.reason_codes,
+                            "missing_evidence": verdict.missing_evidence,
+                            "allowed_actions": verdict.allowed_actions,
+                        }
+                    )
+                graph.edges.append(
+                    GraphEdge(
+                        source=candidate_id,
+                        target=rule_node_id,
+                        edge_type="rejected_rule",
+                        attributes=edge_attributes,
+                        provenance_ids=rule.provenance_ids,
+                    )
+                )
+
         return graph

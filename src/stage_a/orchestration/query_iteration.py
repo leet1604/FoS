@@ -55,17 +55,22 @@ def query_iteration(
             max_neighbors=request.max_neighbors_per_off,
             similarity_threshold=request.similarity_threshold,
         )
-        rules = dependencies.local_query.find_applicable_rules_from_pair(
+        rule_result = dependencies.local_query.evaluate_rules_from_pair(
             candidate.canonical_smiles,
             bundle.rules,
             bundle.mmp_pairs,
             off_id,
             state.selected_route.value,
             max_rules=request.max_rules_per_off,
+            max_rejected_rules=request.max_rules_per_off,
             max_supporting_pairs_per_rule=request.max_supporting_pairs_per_rule,
             min_rule_support_n=request.min_rule_support_n,
         )
-        verdicts = verdict_service.evaluate_many(rules)
+        rules = rule_result.applicable_rules
+        rejected_rules = rule_result.rejected_rules
+        verdicts = verdict_service.evaluate_many(
+            [*rules, *rejected_rules]
+        )
         neighbors_by_off[off_id] = neighbors
         rules_by_off[off_id] = rules
         local_blocks[off_id] = LocalEvidenceBlock(
@@ -83,6 +88,7 @@ def query_iteration(
             ),
             neighbors=neighbors,
             applicable_rules=rules,
+            rejected_rules=rejected_rules,
             verdicts=verdicts,
         )
         off_state_responses.append(
