@@ -119,6 +119,29 @@ class LocalEvidenceQueryService:
         ranked.sort(key=lambda item: item[0], reverse=True)
         return [item for _, item in ranked[:limit]]
 
+    @staticmethod
+    def _delta_s_observations_for_rule(
+        rule_id: str,
+        pair_frame: pd.DataFrame,
+    ) -> list[float]:
+        if pair_frame.empty or "rule_id" not in pair_frame.columns:
+            return []
+        delta_column = (
+            "delta_selectivity"
+            if "delta_selectivity" in pair_frame.columns
+            else "delta_S"
+            if "delta_S" in pair_frame.columns
+            else None
+        )
+        if delta_column is None:
+            return []
+        subset = pair_frame[pair_frame["rule_id"] == rule_id]
+        return [
+            float(value)
+            for value in subset[delta_column].tolist()
+            if pd.notna(value)
+        ]
+
     def _build_rule_evidence(
         self,
         candidate_smiles: str,
@@ -173,6 +196,10 @@ class LocalEvidenceQueryService:
                 rule.rule_id,
                 pair_frame,
                 max_supporting_pairs_per_rule,
+            ),
+            delta_S_observations=self._delta_s_observations_for_rule(
+                rule.rule_id,
+                pair_frame,
             ),
             provenance_ids=rule.provenance_ids,
         )

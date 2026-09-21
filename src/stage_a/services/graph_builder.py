@@ -107,7 +107,7 @@ class EvidenceGraphBuilder:
                 GraphNode(
                     id=f"rule:{rule.rule_id}",
                     node_type="mmp_rule",
-                    attributes=rule.model_dump(mode="json", exclude={"supporting_pairs"}),
+                    attributes=rule.model_dump(mode="json", exclude={"supporting_pairs", "delta_S_observations"}),
                 )
             )
 
@@ -254,7 +254,7 @@ class EvidenceGraphBuilder:
                     GraphNode(
                         id=rule_node_id,
                         node_type="mmp_rule",
-                        attributes=rule.model_dump(mode="json", exclude={"supporting_pairs"}),
+                        attributes=rule.model_dump(mode="json", exclude={"supporting_pairs", "delta_S_observations"}),
                     )
                 )
                 verdict = verdict_by_rule.get(rule.rule_id)
@@ -270,9 +270,11 @@ class EvidenceGraphBuilder:
                     edge_attributes.update(
                         {
                             "verdict": verdict.verdict.value,
+                            "effect_class": verdict.effect_class.value,
                             "reason_codes": verdict.reason_codes,
                             "missing_evidence": verdict.missing_evidence,
                             "allowed_actions": verdict.allowed_actions,
+                            "verdict_metrics": verdict.metrics,
                         }
                     )
                 graph.edges.append(
@@ -311,7 +313,7 @@ class EvidenceGraphBuilder:
                         node_type="mmp_rule",
                         attributes=rule.model_dump(
                             mode="json",
-                            exclude={"supporting_pairs"},
+                            exclude={"supporting_pairs", "delta_S_observations"},
                         ),
                     )
                 )
@@ -325,9 +327,11 @@ class EvidenceGraphBuilder:
                     edge_attributes.update(
                         {
                             "verdict": verdict.verdict.value,
+                            "effect_class": verdict.effect_class.value,
                             "reason_codes": verdict.reason_codes,
                             "missing_evidence": verdict.missing_evidence,
                             "allowed_actions": verdict.allowed_actions,
+                            "verdict_metrics": verdict.metrics,
                         }
                     )
                 graph.edges.append(

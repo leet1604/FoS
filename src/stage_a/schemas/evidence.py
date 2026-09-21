@@ -63,6 +63,9 @@ class ApplicableRuleEvidence(BaseModel):
     applicability: RuleApplicability
     generated_products: list[GeneratedProduct] = Field(default_factory=list)
     supporting_pairs: list[SupportingPairEvidence] = Field(default_factory=list)
+    # Full per-pair deltas used by the verdict engine. supporting_pairs may
+    # remain a small display sample without biasing conflict detection.
+    delta_S_observations: list[float] = Field(default_factory=list)
     provenance_ids: list[str] = Field(default_factory=list)
 
 
