@@ -31,6 +31,25 @@ def test_fixture_pipeline(tmp_path):
     )
     assert local.neighbors
     assert local.applicable_rules
+    assert local.local_evidence
+    assert local.local_evidence.verdicts
+    assert len(local.local_evidence.verdicts) == len(local.applicable_rules)
+    assert all(
+        verdict.verdict.value
+        in {"ADMISSIBLE", "CONFLICTED", "INSUFFICIENT"}
+        for verdict in local.local_evidence.verdicts
+    )
+
+    graph = deps.context_repository.load_graph(init.context_id, iteration=1)
+    rule_edges = [
+        edge
+        for edge in graph.edges
+        if edge.edge_type == "applicable_rule"
+    ]
+    assert rule_edges
+    assert all("verdict" in edge.attributes for edge in rule_edges)
+    assert all("reason_codes" in edge.attributes for edge in rule_edges)
+
     assert local.candidate.position_source["on_target"] == PositionSource.MEASURED
     assert local.candidate.position_source["CHEMBL1824"] == PositionSource.MEASURED
     assert local.local_graph_ref.node_count < 100

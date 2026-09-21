@@ -9,6 +9,7 @@ from stage_a.domain.models import (
     Target,
 )
 from stage_a.schemas.evidence import ApplicableRuleEvidence, NeighborEvidence
+from stage_a.services.evidence_verdict import RuleEvidenceVerdict
 
 
 class SelectedOffTargetResponse(BaseModel):
@@ -103,6 +104,7 @@ class LocalEvidenceBlock(BaseModel):
     confidence_basis: ConfidenceBasis
     neighbors: list[NeighborEvidence]
     applicable_rules: list[ApplicableRuleEvidence]
+    verdicts: list[RuleEvidenceVerdict] = Field(default_factory=list)
 
 
 class OffTargetLocalStateResponse(BaseModel):

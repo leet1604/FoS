@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from stage_a.domain.enums import EvidenceRoute
+from stage_a.services.evidence_verdict import EvidenceVerdictService
 from stage_a.schemas.requests import LocalEvidenceRequest
 from stage_a.schemas.responses import (
     ConfidenceBasis,
@@ -42,6 +43,7 @@ def query_iteration(
     rules_by_off = {}
     prediction_requests: list[PredictionRequest] = []
     off_state_responses: list[OffTargetLocalStateResponse] = []
+    verdict_service = EvidenceVerdictService()
 
     for state in context.selected_off_targets:
         off_id = state.target.stable_id
@@ -63,6 +65,7 @@ def query_iteration(
             max_supporting_pairs_per_rule=request.max_supporting_pairs_per_rule,
             min_rule_support_n=request.min_rule_support_n,
         )
+        verdicts = verdict_service.evaluate_many(rules)
         neighbors_by_off[off_id] = neighbors
         rules_by_off[off_id] = rules
         local_blocks[off_id] = LocalEvidenceBlock(
@@ -80,6 +83,7 @@ def query_iteration(
             ),
             neighbors=neighbors,
             applicable_rules=rules,
+            verdicts=verdicts,
         )
         off_state_responses.append(
             OffTargetLocalStateResponse(

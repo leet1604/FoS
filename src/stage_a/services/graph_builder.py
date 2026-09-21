@@ -206,6 +206,10 @@ class EvidenceGraphBuilder:
         seen_molecules: set[str] = set()
         seen_products: set[str] = set()
         for off_id, block in local_evidence_by_off.items():
+            verdict_by_rule = {
+                verdict.rule_id: verdict
+                for verdict in block.verdicts
+            }
             for neighbor in block.neighbors:
                 node_id = f"mol:{neighbor.compound_id}"
                 if node_id not in seen_molecules:
@@ -253,19 +257,30 @@ class EvidenceGraphBuilder:
                         attributes=rule.model_dump(mode="json", exclude={"supporting_pairs"}),
                     )
                 )
+                verdict = verdict_by_rule.get(rule.rule_id)
+                edge_attributes = {
+                    "off_target_id": off_id,
+                    "delta_on": rule.delta_on,
+                    "delta_off": rule.delta_off,
+                    "delta_selectivity": rule.delta_S,
+                    "support_n": rule.support_n,
+                    "sign_consistency": rule.sign_consistency,
+                }
+                if verdict is not None:
+                    edge_attributes.update(
+                        {
+                            "verdict": verdict.verdict.value,
+                            "reason_codes": verdict.reason_codes,
+                            "missing_evidence": verdict.missing_evidence,
+                            "allowed_actions": verdict.allowed_actions,
+                        }
+                    )
                 graph.edges.append(
                     GraphEdge(
                         source=candidate_id,
                         target=rule_node_id,
                         edge_type="applicable_rule",
-                        attributes={
-                            "off_target_id": off_id,
-                            "delta_on": rule.delta_on,
-                            "delta_off": rule.delta_off,
-                            "delta_selectivity": rule.delta_S,
-                            "support_n": rule.support_n,
-                            "sign_consistency": rule.sign_consistency,
-                        },
+                        attributes=edge_attributes,
                         provenance_ids=rule.provenance_ids,
                     )
                 )
