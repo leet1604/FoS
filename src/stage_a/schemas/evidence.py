@@ -40,6 +40,7 @@ class SupportingPairEvidence(BaseModel):
 
 class ApplicableRuleEvidence(BaseModel):
     rule_id: str
+    transformation_family_id: str | None = None
     off_target_id: str | None = None
     route: str | None = None
     evidence_mode: str = "direct_paired"

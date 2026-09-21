@@ -340,6 +340,10 @@ def initialize_context(
         on_target=on_target,
         off_target_states=states,
         local_evidence_by_off=local_blocks,
+        mmp_pairs_by_off={
+            off_id: bundle.mmp_pairs
+            for off_id, bundle in pair_bundles.items()
+        },
         iteration=0,
     )
     timings["seed_local_graph"] = time.perf_counter() - step_started

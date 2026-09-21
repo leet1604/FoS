@@ -36,7 +36,7 @@ class GraphReference(BaseModel):
     path: str
     node_count: int
     edge_count: int
-    schema_version: str = "2.0-local"
+    schema_version: str = "2.1-local"
     scope: str = "current_candidate_local"
 
 

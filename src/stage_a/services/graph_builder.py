@@ -130,6 +130,70 @@ class EvidenceGraphBuilder:
             )
         return graph
 
+    @staticmethod
+    def _append_rule_observations(
+        graph: SerializableGraph,
+        *,
+        rule_node_id: str,
+        rule_id: str,
+        transformation_family_id: str | None,
+        off_target_id: str,
+        pair_frame: pd.DataFrame,
+        seen_observations: set[str],
+    ) -> None:
+        if pair_frame.empty or "rule_id" not in pair_frame.columns:
+            return
+        subset = pair_frame[pair_frame["rule_id"] == rule_id]
+        for index, row in enumerate(subset.to_dict(orient="records"), start=1):
+            raw_pair_id = row.get("pair_id")
+            pair_id = (
+                str(raw_pair_id)
+                if isinstance(raw_pair_id, str) and raw_pair_id
+                else f"{rule_id}:{index}"
+            )
+            observation_id = f"mmp_observation:{off_target_id}:{pair_id}"
+            provenance = row.get("provenance_ids", [])
+            if not isinstance(provenance, list):
+                provenance = []
+            family_id = row.get("transformation_family_id")
+            if not isinstance(family_id, str) or not family_id:
+                family_id = transformation_family_id
+
+            if observation_id not in seen_observations:
+                graph.nodes.append(
+                    GraphNode(
+                        id=observation_id,
+                        node_type="mmp_observation",
+                        attributes={
+                            "pair_id": pair_id,
+                            "rule_id": rule_id,
+                            "transformation_family_id": family_id,
+                            "core_fragment": row.get("core_fragment"),
+                            "source_compound": row.get("source_compound"),
+                            "target_compound": row.get("target_compound"),
+                            "source_smiles": row.get("source_smiles"),
+                            "target_smiles": row.get("target_smiles"),
+                            "delta_on": row.get("delta_on"),
+                            "delta_off": row.get("delta_off"),
+                            "delta_selectivity": row.get("delta_selectivity"),
+                            "off_target_id": off_target_id,
+                        },
+                    )
+                )
+                seen_observations.add(observation_id)
+            graph.edges.append(
+                GraphEdge(
+                    source=observation_id,
+                    target=rule_node_id,
+                    edge_type="supports_transformation",
+                    attributes={
+                        "off_target_id": off_target_id,
+                        "transformation_family_id": family_id,
+                    },
+                    provenance_ids=provenance,
+                )
+            )
+
     def build_local(
         self,
         candidate: CandidatePosition,
@@ -137,10 +201,11 @@ class EvidenceGraphBuilder:
         off_target_states: list[OffTargetState],
         local_evidence_by_off: dict[str, LocalEvidenceBlock],
         iteration: int,
+        mmp_pairs_by_off: dict[str, pd.DataFrame] | None = None,
     ) -> SerializableGraph:
         graph = SerializableGraph(
             metadata={
-                "schema_version": "2.0-local",
+                "schema_version": "2.1-local",
                 "scope": "current_candidate",
                 "iteration": iteration,
                 "candidate_smiles": candidate.canonical_smiles,
@@ -205,6 +270,8 @@ class EvidenceGraphBuilder:
 
         seen_molecules: set[str] = set()
         seen_products: set[str] = set()
+        seen_observations: set[str] = set()
+        pair_frames = mmp_pairs_by_off or {}
         for off_id, block in local_evidence_by_off.items():
             verdict_by_rule = {
                 verdict.rule_id: verdict
@@ -253,7 +320,11 @@ class EvidenceGraphBuilder:
                 graph.nodes.append(
                     GraphNode(
                         id=rule_node_id,
-                        node_type="mmp_rule",
+                        node_type=(
+                            "portable_transformation"
+                            if rule.evidence_mode == "portable_fragment_transform"
+                            else "mmp_rule"
+                        ),
                         attributes=rule.model_dump(mode="json", exclude={"supporting_pairs", "delta_S_observations"}),
                     )
                 )
@@ -285,6 +356,15 @@ class EvidenceGraphBuilder:
                         attributes=edge_attributes,
                         provenance_ids=rule.provenance_ids,
                     )
+                )
+                self._append_rule_observations(
+                    graph,
+                    rule_node_id=rule_node_id,
+                    rule_id=rule.rule_id,
+                    transformation_family_id=rule.transformation_family_id,
+                    off_target_id=off_id,
+                    pair_frame=pair_frames.get(off_id, pd.DataFrame()),
+                    seen_observations=seen_observations,
                 )
                 for product in rule.generated_products:
                     product_id = f"product:{product.canonical_smiles}"

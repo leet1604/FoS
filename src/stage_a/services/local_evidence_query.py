@@ -156,6 +156,7 @@ class LocalEvidenceQueryService:
     ) -> ApplicableRuleEvidence:
         return ApplicableRuleEvidence(
             rule_id=rule.rule_id,
+            transformation_family_id=rule.transformation_family_id,
             off_target_id=off_target_id,
             route=route,
             evidence_mode=rule.evidence_mode,

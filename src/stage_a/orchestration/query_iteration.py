@@ -168,6 +168,10 @@ def query_iteration(
         on_target=context.on_target,
         off_target_states=context.selected_off_targets,
         local_evidence_by_off=local_blocks,
+        mmp_pairs_by_off={
+            off_id: bundle.mmp_pairs
+            for off_id, bundle in pair_bundles.items()
+        },
         iteration=request.iteration,
     )
     graph_path = dependencies.context_repository.save_local_graph(
