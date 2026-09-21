@@ -166,6 +166,7 @@ class RDKitMMPExtractor:
                     observations[(core, source_frag, target_frag)].append(
                         MMPSupportPair(
                             pair_id=f"{source_id}__{target_id}",
+                            core_fragment=core,
                             source_compound=source_id,
                             target_compound=target_id,
                             source_smiles=source_row.get("canonical_smiles"),
@@ -254,7 +255,14 @@ def aggregate_portable_mmp_rules(
         if not rule.from_fragment or not rule.to_fragment:
             continue
         key = (rule.from_fragment, rule.to_fragment)
-        grouped[key].extend(rule.supporting_pairs)
+        grouped[key].extend(
+            pair.model_copy(
+                update={
+                    "core_fragment": pair.core_fragment or rule.core_fragment,
+                }
+            )
+            for pair in rule.supporting_pairs
+        )
         if rule.core_fragment:
             core_sets[key].add(rule.core_fragment)
 
@@ -282,12 +290,17 @@ def aggregate_portable_mmp_rules(
             if (1 if value >= 0 else -1) == representative_sign
         ) / len(delta_s_values)
         digest = hashlib.sha1(f"portable|{from_frag}|{to_frag}".encode()).hexdigest()[:12]
+        family_left, family_right = sorted((from_frag, to_frag))
+        family_digest = hashlib.sha1(
+            f"portable-family|{family_left}|{family_right}".encode()
+        ).hexdigest()[:12]
         provenance_ids = list(
             dict.fromkeys(pid for pair in observations for pid in pair.provenance_ids)
         )
         portable.append(
             MMPRule(
                 rule_id=f"PMMP_{digest}",
+                transformation_family_id=f"PMMPF_{family_digest}",
                 core_fragment=None,
                 from_fragment=from_frag,
                 to_fragment=to_frag,

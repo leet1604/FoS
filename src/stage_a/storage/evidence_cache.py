@@ -11,6 +11,9 @@ import pandas as pd
 from stage_a.domain.models import ActivityRecord, MMPRule
 
 
+PAIR_CACHE_SCHEMA_VERSION = "3.0-portable-observations"
+
+
 @dataclass
 class PairCacheBundle:
     paired: pd.DataFrame
@@ -90,7 +93,24 @@ class EvidenceCacheRepository:
 
     def has_pair(self, on_target_id: str, off_target_id: str) -> bool:
         paths = self.pair_paths(on_target_id, off_target_id)
-        return all(paths[key].exists() for key in ("paired", "aggregated", "rules", "pairs", "manifest"))
+        return all(
+            paths[key].exists()
+            for key in ("paired", "aggregated", "rules", "pairs", "manifest")
+        )
+
+    def has_current_pair_schema(
+        self,
+        on_target_id: str,
+        off_target_id: str,
+    ) -> bool:
+        paths = self.pair_paths(on_target_id, off_target_id)
+        if not self.has_pair(on_target_id, off_target_id):
+            return False
+        try:
+            manifest = json.loads(paths["manifest"].read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return False
+        return manifest.get("schema_version") == PAIR_CACHE_SCHEMA_VERSION
 
     @staticmethod
     def _write_frame(frame: pd.DataFrame, path: Path) -> None:
@@ -131,6 +151,8 @@ class EvidenceCacheRepository:
                     {
                         "pair_id": pair_id,
                         "rule_id": rule.rule_id,
+                        "transformation_family_id": rule.transformation_family_id,
+                        "core_fragment": pair.core_fragment,
                         "source_compound": pair.source_compound,
                         "target_compound": pair.target_compound,
                         "source_smiles": pair.source_smiles,
@@ -161,6 +183,7 @@ class EvidenceCacheRepository:
         paths["manifest"].write_text(
             json.dumps(
                 {
+                    "schema_version": PAIR_CACHE_SCHEMA_VERSION,
                     "on_target_id": on_target_id,
                     "off_target_id": off_target_id,
                     "n_paired": len(paired),

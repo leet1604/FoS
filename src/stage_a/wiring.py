@@ -138,7 +138,9 @@ def build_live_dependencies(
                 max_variable_heavy_atoms=12,
                 min_core_heavy_atoms=8,
                 max_group_size=100,
-                max_rules=500,
+                # Portable aggregation must see the full exact-rule pool.
+                # Only the aggregated portable library is capped downstream.
+                max_rules=100000,
                 max_embedded_supporting_pairs=100000,
             )
         ),

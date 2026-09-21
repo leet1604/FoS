@@ -105,6 +105,7 @@ class OffTargetCandidate(BaseModel):
 
 class MMPSupportPair(BaseModel):
     pair_id: str | None = None
+    core_fragment: str | None = None
     source_compound: str
     target_compound: str
     source_smiles: str | None = None
@@ -117,6 +118,7 @@ class MMPSupportPair(BaseModel):
 
 class MMPRule(BaseModel):
     rule_id: str
+    transformation_family_id: str | None = None
     core_fragment: str | None = None
     from_fragment: str | None = None
     to_fragment: str | None = None

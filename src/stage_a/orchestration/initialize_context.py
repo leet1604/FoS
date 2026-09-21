@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
+from stage_a.chemistry.mmp import aggregate_portable_mmp_rules
 from stage_a.domain.enums import (
     ConfidenceLabel,
     EvidenceRoute,
@@ -155,7 +156,10 @@ def initialize_context(
     for rank, candidate in enumerate(selected_candidates, start=1):
         off_target = candidate.target
         pair_exists = (
-            dependencies.evidence_cache.has_pair(on_target.stable_id, off_target.stable_id)
+            dependencies.evidence_cache.has_current_pair_schema(
+                on_target.stable_id,
+                off_target.stable_id,
+            )
             and not request.force_refresh
         )
         if pair_exists:
@@ -180,9 +184,17 @@ def initialize_context(
                 on_target.stable_id,
                 off_target.stable_id,
             )
-            direct_rules = dependencies.mmp_extractor.extract(
+            exact_rules = dependencies.mmp_extractor.extract(
                 harmonized.paired.to_dict(orient="records")
             )
+            portable_rules = aggregate_portable_mmp_rules(
+                exact_rules,
+                minimum_support=2,
+                max_rules=500,
+            )
+            # Fixture and manually curated rules may not expose fragment pairs;
+            # retain exact rules as a backward-compatible fallback.
+            direct_rules = portable_rules or exact_rules[:500]
             n_on_pre = int(
                 harmonized.aggregated[
                     harmonized.aggregated["target_id"] == on_target.stable_id
