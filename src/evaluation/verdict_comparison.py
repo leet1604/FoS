@@ -5,6 +5,7 @@ from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
+from evaluation.schemas_v2 import ActionSpaceCandidate
 from stage_a.services.evidence_verdict import EffectClass, EvidenceVerdict
 
 
@@ -64,6 +65,37 @@ class VerdictComparisonResult(BaseModel):
     verdict_aware: VerdictPolicyMetrics
     decisions: list[CandidatePolicyDecision]
     metric_deltas: dict[str, float | None]
+
+
+def candidate_to_verdict_record(
+    episode_id: str,
+    candidate: ActionSpaceCandidate,
+) -> VerdictEvaluationCandidate:
+    """Convert a frozen action-space row into the comparison input schema."""
+
+    verdict_raw = candidate.metadata.get("evidence_verdict")
+    effect_raw = candidate.metadata.get("effect_class")
+    if not verdict_raw or not effect_raw:
+        raise ValueError(
+            f"Candidate {candidate.candidate_id} lacks evidence_verdict/effect_class metadata"
+        )
+    try:
+        verdict = EvidenceVerdict(str(verdict_raw))
+        effect = EffectClass(str(effect_raw))
+    except ValueError as exc:
+        raise ValueError(
+            f"Candidate {candidate.candidate_id} has invalid verdict metadata"
+        ) from exc
+    return VerdictEvaluationCandidate(
+        episode_id=episode_id,
+        candidate_id=candidate.candidate_id,
+        predicted_delta_selectivity=candidate.predicted_cumulative_delta_selectivity,
+        evidence_verdict=verdict,
+        effect_class=effect,
+        oracle_success=candidate.oracle_success,
+        hard_safety_violation=candidate.hard_safety_violation,
+        metadata=dict(candidate.metadata),
+    )
 
 
 def _safe_div(numerator: int | float, denominator: int | float) -> float | None:

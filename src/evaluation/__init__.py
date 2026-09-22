@@ -15,6 +15,7 @@ from .schemas import (
 )
 from .verdict_comparison import (
     CandidatePolicyDecision,
+    candidate_to_verdict_record,
     EvaluationDecision,
     VerdictComparisonResult,
     VerdictEvaluationCandidate,
@@ -44,6 +45,7 @@ __all__ = [
     "ExpectedBehavior",
     "OracleRecord",
     "CandidatePolicyDecision",
+    "candidate_to_verdict_record",
     "EvaluationDecision",
     "VerdictComparisonResult",
     "VerdictEvaluationCandidate",

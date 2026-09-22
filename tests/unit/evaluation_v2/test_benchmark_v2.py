@@ -91,6 +91,11 @@ def test_portable_mmp_rule_reaches_unseen_core() -> None:
     from rdkit import Chem
     expected = Chem.MolToSmiles(Chem.MolFromSmiles(MOLECULES["C_ET"]), canonical=True)
     assert expected in {candidate.canonical_smiles for candidate in candidates}
+    assert all(
+        candidate.metadata.get("evidence_verdict")
+        for candidate in candidates
+    )
+    assert all(candidate.metadata.get("effect_class") for candidate in candidates)
 
 
 def test_pair_profiler_recommends_document_time() -> None:

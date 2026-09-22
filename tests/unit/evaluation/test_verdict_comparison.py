@@ -5,8 +5,10 @@ import pytest
 from evaluation.verdict_comparison import (
     EvaluationDecision,
     VerdictEvaluationCandidate,
+    candidate_to_verdict_record,
     compare_verdict_policies,
 )
+from evaluation.schemas_v2 import ActionSpaceCandidate
 from stage_a.services.evidence_verdict import EffectClass, EvidenceVerdict
 
 
@@ -136,3 +138,28 @@ def test_candidate_ids_may_repeat_across_episodes_but_not_within_episode() -> No
 
     with pytest.raises(ValueError, match="unique within each episode"):
         compare_verdict_policies([candidates[0], candidates[0]])
+
+
+def test_action_space_candidate_is_converted_from_verdict_metadata() -> None:
+    candidate = ActionSpaceCandidate(
+        candidate_id="C1",
+        canonical_smiles="CC",
+        depth=1,
+        parent_smiles="C",
+        rule_id="R1",
+        path_rule_ids=["R1"],
+        predicted_delta_on=0.1,
+        predicted_delta_off=-0.2,
+        predicted_delta_selectivity=0.3,
+        predicted_cumulative_delta_on=0.1,
+        predicted_cumulative_delta_off=-0.2,
+        predicted_cumulative_delta_selectivity=0.3,
+        metadata={
+            "evidence_verdict": "ADMISSIBLE",
+            "effect_class": "BENEFICIAL",
+        },
+        oracle_success=True,
+    )
+    row = candidate_to_verdict_record("EP1", candidate)
+    assert row.evidence_verdict == EvidenceVerdict.ADMISSIBLE
+    assert row.effect_class == EffectClass.BENEFICIAL

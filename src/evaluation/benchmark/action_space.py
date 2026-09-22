@@ -9,6 +9,15 @@ from rdkit import Chem
 
 from stage_a.chemistry.rule_application import RuleApplicabilityFilter
 from stage_a.domain.models import MMPRule
+from stage_a.schemas.evidence import (
+    ApplicableRuleEvidence,
+    GeneratedProduct,
+    RuleApplicability,
+)
+from stage_a.services.evidence_verdict import (
+    EvidenceVerdictConfig,
+    EvidenceVerdictService,
+)
 from stage_b.config import StageBConfig
 from stage_b.safety_filters import assess_product
 
@@ -22,6 +31,7 @@ class EnumerationConfig:
     include_hard_safety_failures: bool = True
     min_rule_support_n: int = 1
     min_sign_consistency: float = 0.0
+    evidence_verdict_min_support_n: int = 3
 
 
 def _canonical(smiles: str) -> str | None:
@@ -61,6 +71,60 @@ class ActionSpaceEnumerator:
             key=lambda rule: (rule.rule_id, -rule.support_n),
         )
         self.applicability = RuleApplicabilityFilter()
+        self.verdict_service = EvidenceVerdictService(
+            EvidenceVerdictConfig(
+                min_support_n=self.config.evidence_verdict_min_support_n,
+            )
+        )
+
+    def _verdict_metadata(
+        self,
+        rule: MMPRule,
+        product: str,
+        match_count: int,
+    ) -> dict[str, object]:
+        verdict = self.verdict_service.evaluate(
+            ApplicableRuleEvidence(
+                rule_id=rule.rule_id,
+                transformation_family_id=rule.transformation_family_id,
+                evidence_mode=rule.evidence_mode,
+                description=rule.description,
+                core_fragment=rule.core_fragment,
+                from_frag=rule.from_fragment,
+                to_frag=rule.to_fragment,
+                reaction_smarts=rule.reaction_smarts,
+                delta_on=rule.delta_on,
+                delta_off=rule.delta_off,
+                delta_S=rule.delta_selectivity,
+                delta_on_std=rule.delta_on_std,
+                delta_off_std=rule.delta_off_std,
+                delta_S_std=rule.delta_selectivity_std,
+                delta_on_iqr=rule.delta_on_iqr,
+                delta_off_iqr=rule.delta_off_iqr,
+                delta_S_iqr=rule.delta_selectivity_iqr,
+                support_n=rule.support_n,
+                sign_consistency=rule.sign_consistency,
+                confidence=rule.confidence.value,
+                applicability=RuleApplicability(
+                    applicable=True,
+                    match_count=match_count,
+                    sanitization_passed=True,
+                ),
+                generated_products=[GeneratedProduct(canonical_smiles=product)],
+                delta_S_observations=[
+                    pair.delta_selectivity for pair in rule.supporting_pairs
+                ],
+                provenance_ids=rule.provenance_ids,
+            )
+        )
+        return {
+            "evidence_verdict": verdict.verdict.value,
+            "effect_class": verdict.effect_class.value,
+            "verdict_reason_codes": verdict.reason_codes,
+            "verdict_missing_evidence": verdict.missing_evidence,
+            "verdict_allowed_actions": verdict.allowed_actions,
+            "verdict_metrics": verdict.metrics,
+        }
 
     def enumerate(
         self,
@@ -126,6 +190,7 @@ class ActionSpaceEnumerator:
                             "rule_confidence": rule.confidence.value,
                             "rule_sign_consistency": rule.sign_consistency,
                             "match_count": match_count,
+                            **self._verdict_metadata(rule, product, match_count),
                         },
                     )
                     if self.config.include_hard_safety_failures or not candidate.hard_safety_violation:
