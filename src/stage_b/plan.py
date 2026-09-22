@@ -210,6 +210,9 @@ def build_plan_table(
                         "reaction_smarts": rule.get("reaction_smarts"),
                         "description": rule.get("description"),
                         "families": [],
+                        "evidence_verdicts": [],
+                        "effect_classes": [],
+                        "verdict_reason_codes": [],
                     },
                 )
                 rule_row = dict(rule)
@@ -220,6 +223,16 @@ def build_plan_table(
                     if rule_id not in group["rule_ids"]:
                         group["rule_ids"].append(str(rule_id))
                 group["families"].append(_family(rule))
+                if rule.get("_evidence_verdict"):
+                    group["evidence_verdicts"].append(
+                        str(rule["_evidence_verdict"])
+                    )
+                if rule.get("_effect_class"):
+                    group["effect_classes"].append(str(rule["_effect_class"]))
+                group["verdict_reason_codes"].extend(
+                    str(code)
+                    for code in rule.get("_verdict_reason_codes") or []
+                )
 
     edits: list[CandidateEdit] = []
     for product_smiles, group in grouped.items():
@@ -314,6 +327,11 @@ def build_plan_table(
             source="stage_a_mmp",
             family=family,
             rule_ids=group["rule_ids"],
+            evidence_verdicts=list(dict.fromkeys(group["evidence_verdicts"])),
+            effect_classes=list(dict.fromkeys(group["effect_classes"])),
+            verdict_reason_codes=list(
+                dict.fromkeys(group["verdict_reason_codes"])
+            ),
             from_frag=group["from_frag"],
             to_frag=group["to_frag"],
             reaction_smarts=group["reaction_smarts"],
@@ -355,6 +373,18 @@ def build_plan_table(
             result = classify_candidate(edit, config)
             edit.gate = result.gate
             edit.gate_reasons = result.reasons
+        non_admissible = {
+            value
+            for value in edit.evidence_verdicts
+            if value != "ADMISSIBLE"
+        }
+        if non_admissible and edit.gate != CandidateGate.REJECTED:
+            edit.gate = CandidateGate.NEEDS_VALIDATION
+            edit.gate_reasons.extend(
+                f"evidence_verdict:{value.lower()}"
+                for value in sorted(non_admissible)
+            )
+            edit.gate_reasons = list(dict.fromkeys(edit.gate_reasons))
         edits.append(edit)
 
     _mark_pareto(edits)
@@ -364,9 +394,18 @@ def build_plan_table(
         CandidateGate.NEEDS_VALIDATION: 1,
         CandidateGate.REJECTED: 0,
     }
+    effect_rank = {
+        "BENEFICIAL": 2,
+        "NEUTRAL": 1,
+        "HARMFUL": 0,
+    }
     edits.sort(
         key=lambda edit: (
             gate_rank[edit.gate],
+            max(
+                (effect_rank.get(value, 1) for value in edit.effect_classes),
+                default=1,
+            ),
             edit.is_pareto,
             edit.agg_selectivity_gain,
             edit.delta_on if edit.delta_on is not None else -999.0,

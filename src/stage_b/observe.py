@@ -149,7 +149,23 @@ def build_observation(
         requirement = state.get("requirement", "selected")
         status = state.get("status", "selected")
         weight = config.off_weights.get(status, config.off_weights.get(requirement, 0.5))
-        rules = block.get("applicable_rules", []) or []
+        raw_rules = block.get("applicable_rules", []) or []
+        verdict_by_rule = {
+            str(item.get("rule_id")): item
+            for item in block.get("verdicts", []) or []
+            if item.get("rule_id")
+        }
+        rules: list[dict[str, Any]] = []
+        for raw_rule in raw_rules:
+            rule = dict(raw_rule)
+            verdict = verdict_by_rule.get(str(rule.get("rule_id")))
+            if verdict is not None:
+                rule["_evidence_verdict"] = verdict.get("verdict")
+                rule["_effect_class"] = verdict.get("effect_class")
+                rule["_verdict_reason_codes"] = list(
+                    verdict.get("reason_codes") or []
+                )
+            rules.append(rule)
         neighbors = block.get("neighbors", []) or []
         rules_by_off[off_id] = rules
         neighbors_by_off[off_id] = neighbors

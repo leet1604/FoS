@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 from stage_a.domain.enums import EvidenceRoute
-from stage_a.services.evidence_verdict import EvidenceVerdictService
+from stage_a.services.evidence_verdict import (
+    EvidenceVerdictConfig,
+    EvidenceVerdictService,
+)
 from stage_a.schemas.requests import LocalEvidenceRequest
 from stage_a.schemas.responses import (
     ConfidenceBasis,
@@ -43,7 +46,11 @@ def query_iteration(
     rules_by_off = {}
     prediction_requests: list[PredictionRequest] = []
     off_state_responses: list[OffTargetLocalStateResponse] = []
-    verdict_service = EvidenceVerdictService()
+    verdict_service = EvidenceVerdictService(
+        EvidenceVerdictConfig(
+            min_support_n=request.evidence_verdict_min_support_n,
+        )
+    )
 
     for state in context.selected_off_targets:
         off_id = state.target.stable_id
@@ -161,6 +168,7 @@ def query_iteration(
             else dependencies.local_query.similarity_threshold
         ),
         "min_rule_support_n": request.min_rule_support_n,
+        "evidence_verdict_min_support_n": request.evidence_verdict_min_support_n,
     }
 
     local_graph = dependencies.graph_builder.build_local(

@@ -51,6 +51,7 @@ class LocalEvidenceRequest(BaseModel):
     # they only relax filtering over the already materialized pair cache.
     similarity_threshold: float | None = Field(default=None, ge=0.0, le=1.0)
     min_rule_support_n: int | None = Field(default=None, ge=1)
+    evidence_verdict_min_support_n: int = Field(default=3, ge=1)
     expansion_level: int = Field(default=0, ge=0, le=10)
 
     # Optional trajectory metadata supplied by Stage B.

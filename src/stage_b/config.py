@@ -73,6 +73,7 @@ class StageBConfig:
 
     # Evidence gate (calibration-ready; values are provisional defaults)
     min_rule_support_n: int = 2
+    evidence_verdict_min_support_n: int = 3
     min_rule_confidence: str = "medium"
     min_sign_consistency: float = 0.70
     severe_direction_conflict: float = 0.50
@@ -102,6 +103,7 @@ class StageBConfig:
     w_selectivity: float = 1.0
     w_on_retention: float = 0.4
     w_confidence: float = 0.0
+    neutral_effect_penalty: float = 0.05
 
     off_weights: dict[str, float] = field(
         default_factory=lambda: dict(DEFAULT_OFF_WEIGHTS)
@@ -133,6 +135,8 @@ class StageBConfig:
             raise ValueError("max_validation_attempts_per_candidate must be >= 0")
         if self.max_prediction_calls_per_run < 0:
             raise ValueError("max_prediction_calls_per_run must be >= 0")
+        if self.evidence_verdict_min_support_n < 1:
+            raise ValueError("evidence_verdict_min_support_n must be >= 1")
         if self.min_rule_confidence not in CONFIDENCE_RANK:
             raise ValueError(
                 f"Unsupported min_rule_confidence={self.min_rule_confidence!r}"

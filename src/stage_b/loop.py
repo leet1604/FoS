@@ -51,10 +51,17 @@ def _trajectory_text(steps: list[TrajectoryStep], window: int) -> str:
 
 def _beam_score(edit: CandidateEdit, config: StageBConfig) -> float:
     confidence = config.confidence_score.get(edit.rule_evidence_confidence, 0.0)
+    neutral_penalty = (
+        config.neutral_effect_penalty
+        if edit.effect_classes
+        and set(edit.effect_classes) <= {"NEUTRAL"}
+        else 0.0
+    )
     return (
         config.w_selectivity * edit.agg_selectivity_gain
         + config.w_on_retention * (edit.delta_on or 0.0)
         + config.w_confidence * confidence
+        - neutral_penalty
     )
 
 
@@ -331,6 +338,9 @@ def run_stage_b(
                 max_supporting_pairs_per_rule=5,
                 similarity_threshold=threshold,
                 expansion_level=expansion_level,
+                evidence_verdict_min_support_n=(
+                    config.evidence_verdict_min_support_n
+                ),
                 parent_candidate_smiles=parent_smiles,
                 applied_rule_id=(applied_rule_ids[0] if applied_rule_ids else None),
                 decision=last_decision,

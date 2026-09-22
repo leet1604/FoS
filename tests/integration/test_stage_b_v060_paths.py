@@ -127,6 +127,7 @@ def test_mini_real_bundle_runs_without_reinitializing_stage_a(tmp_path):
         max_iterations=1,
         max_expansions_per_run=0,
         min_rule_support_n=1,
+        evidence_verdict_min_support_n=1,
         min_rule_confidence="medium",
     )
     result = run_stage_b(
@@ -149,6 +150,7 @@ def test_backtracking_does_not_erase_successful_terminal_candidate(tmp_path):
         max_iterations=2,
         max_expansions_per_run=0,
         min_rule_support_n=1,
+        evidence_verdict_min_support_n=1,
         min_rule_confidence="medium",
         enable_dynamic_discovery=False,
     )

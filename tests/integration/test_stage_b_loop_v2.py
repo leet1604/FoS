@@ -30,6 +30,7 @@ def test_fixture_can_accept_when_calibrated_gate_allows_support_one(tmp_path):
         max_iterations=2,
         max_expansions_per_run=0,
         min_rule_support_n=1,
+        evidence_verdict_min_support_n=1,
         min_rule_confidence="medium",
     )
     result = run_stage_b(

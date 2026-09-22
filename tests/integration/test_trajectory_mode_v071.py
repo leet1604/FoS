@@ -16,6 +16,7 @@ def _run(tmp_path, *, search_mode: str):
         max_family_switches_per_run=0,
         max_backtracks_per_run=2,
         min_rule_support_n=1,
+        evidence_verdict_min_support_n=1,
         min_rule_confidence="medium",
         enable_dynamic_discovery=False,
     )
@@ -102,6 +103,7 @@ def test_v072_provisional_trajectory_can_advance_without_claiming_full_validatio
         max_expansions_per_run=0,
         max_family_switches_per_run=0,
         min_rule_support_n=99,
+        evidence_verdict_min_support_n=1,
         min_rule_confidence="high",
         provisional_min_selectivity_gain=0.1,
         enable_dynamic_discovery=False,

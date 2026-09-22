@@ -68,6 +68,9 @@ class CandidateEdit(BaseModel):
     family: str | None = None
 
     rule_ids: list[str] = Field(default_factory=list)
+    evidence_verdicts: list[str] = Field(default_factory=list)
+    effect_classes: list[str] = Field(default_factory=list)
+    verdict_reason_codes: list[str] = Field(default_factory=list)
     from_frag: str | None = None
     to_frag: str | None = None
     reaction_smarts: str | None = None
