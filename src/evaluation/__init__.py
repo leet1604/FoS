@@ -13,6 +13,14 @@ from .schemas import (
     ExpectedBehavior,
     OracleRecord,
 )
+from .verdict_comparison import (
+    CandidatePolicyDecision,
+    EvaluationDecision,
+    VerdictComparisonResult,
+    VerdictEvaluationCandidate,
+    VerdictPolicyMetrics,
+    compare_verdict_policies,
+)
 
 __all__ = [
     "BASELINE_NAMES",
@@ -35,4 +43,10 @@ __all__ = [
     "EvaluationSummary",
     "ExpectedBehavior",
     "OracleRecord",
+    "CandidatePolicyDecision",
+    "EvaluationDecision",
+    "VerdictComparisonResult",
+    "VerdictEvaluationCandidate",
+    "VerdictPolicyMetrics",
+    "compare_verdict_policies",
 ]
